@@ -1,0 +1,67 @@
+/* amarante-regular - latin */
+@font-face {
+    font-family: 'Amarante';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/amarante-v22-latin-regular.eot'); /* IE9 Compat Modes */
+    src: local(''),
+         url('../fonts/amarante-v22-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../fonts/amarante-v22-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/amarante-v22-latin-regular.woff') format('woff'), /* Modern Browsers */
+         url('../fonts/amarante-v22-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('../fonts/amarante-v22-latin-regular.svg#Amarante') format('svg'); /* Legacy iOS */
+}
+/* geo-regular - latin */
+@font-face {
+    font-family: 'Geo';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/geo-v19-latin-regular.eot'); /* IE9 Compat Modes */
+    src: local(''),
+         url('../fonts/geo-v19-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../fonts/geo-v19-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/geo-v19-latin-regular.woff') format('woff'), /* Modern Browsers */
+         url('../fonts/geo-v19-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('../fonts/geo-v19-latin-regular.svg#Geo') format('svg'); /* Legacy iOS */
+}
+body {
+    font-family: 'Geo';
+    background:#0C230F;
+    overflow:hidden;
+    margin:0;
+}
+.flex-container {
+    height: 672px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.flex-item {
+    background-color: darkolivegreen;
+    padding: 0px;
+    margin: 0px;
+    height: 672px;
+    width: 1056px;
+}
+canvas {
+    background: #000;
+    image-rendering:-moz-crisp-edges;
+    image-rendering:pixelated;
+}
+.text {
+    text-align: center;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 40px;
+    color: #8DC497;
+}
+
+#loading {
+    position: relative;
+    text-align: center;
+    margin-top: 200px;
+    text-align: center;
+    font-size: 200px;
+    color: #cbc8c8;
+}
+
