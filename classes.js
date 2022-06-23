@@ -1,10 +1,13 @@
 
 class Sprite {
-    constructor({name, position, image, frames = { max: 1 }, sprites, location = "none", solid = false, interactable = false, item = false, size = 1, animationFrameRate = 20}) {
+    constructor({name, position, image, frames = { max: 1 }, sprites, location = "none", solid = false, interactable = false, item = false, size = 1, animationFrameRate = 20, upperImage = false}) {
         this.spriteID = Math.floor(Math.random() * (10000 - 1) + 1)
         this.name = name
         this.position = position
         this.image = image
+        if(upperImage) {
+			this.upperImage = upperImage
+		}
         this.frames = { ...frames, val: 0, elapsed: 0 }
         this.animationFrameRate = animationFrameRate
         this.sprites = sprites
@@ -25,6 +28,9 @@ class Sprite {
             case 'debug':
                 debugObjs.push(this);
                 break;
+			case 'upper':
+				upperObjs.push(this);
+				break;
         }
         if(solid)
             solidObjs.push(this);
@@ -37,7 +43,6 @@ class Sprite {
         this.image.onload = () => {
             this.width = this.image.width / this.frames.max
             this.height = this.image.height
-            
             if(this.name === "background") {
                 for(let i = 0; i < background.width / GLOB_tileSize; i++) {
                     const imageBorderCycles = CreateImage('border');
@@ -88,10 +93,21 @@ class Sprite {
             }
             
         }
+		if(this.upperImage) {
+			const upperImageNew = CreateImage(this.upperImage);
+			new Sprite({
+				name: this.name + "_upper",
+				position: {
+					x: GLOB_bgOffset.x + this.position.x,
+					y: GLOB_bgOffset.y + this.position.y - Tiles(1)
+				},
+				image: upperImageNew,
+				location: "upper",
+				solid: false
+			});
+		}
         this.moving = true;
         this.size = size;
-
-        
     }
     draw() {
         c.drawImage(
