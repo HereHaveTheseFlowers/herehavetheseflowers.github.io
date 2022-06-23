@@ -6,7 +6,7 @@ function drawObjects() {
   c.save();
   for(let obj of floorObjs) {
     if(obj.item)
-      MakeShadow(6, -3, 12, 'rgba(0,30,0,0.2)');
+      MakeShadow(6, -3, 12, 'rgba(0,20,0,0.18)');
     obj.draw();
   }
   if(GLOB_debug) {
