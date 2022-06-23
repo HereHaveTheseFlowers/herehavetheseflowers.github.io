@@ -99,6 +99,8 @@ function HandlePlayerMovement(dir) {
       }
       for(let obj of floorObjs)
         obj.position.y += GLOB_movingSpeed;
+      for(let obj of upperObjs)
+        obj.position.y += GLOB_movingSpeed;
       for(let obj of bgObjs)
         obj.position.y += GLOB_movingSpeed;
       for(let obj of debugObjs)
@@ -116,6 +118,8 @@ function HandlePlayerMovement(dir) {
         break;
       }
       for(let obj of floorObjs)
+        obj.position.x -= GLOB_movingSpeed;
+      for(let obj of upperObjs)
         obj.position.x -= GLOB_movingSpeed;
       for(let obj of bgObjs)
         obj.position.x -= GLOB_movingSpeed;
@@ -135,6 +139,8 @@ function HandlePlayerMovement(dir) {
       }
       for(let obj of floorObjs)
         obj.position.y -= GLOB_movingSpeed;
+      for(let obj of upperObjs)
+        obj.position.y -= GLOB_movingSpeed;
       for(let obj of bgObjs)
         obj.position.y -= GLOB_movingSpeed;
       for(let obj of debugObjs)
@@ -152,6 +158,8 @@ function HandlePlayerMovement(dir) {
         break;
       }
       for(let obj of floorObjs)
+        obj.position.x += GLOB_movingSpeed;
+      for(let obj of upperObjs)
         obj.position.x += GLOB_movingSpeed;
       for(let obj of bgObjs)
         obj.position.x += GLOB_movingSpeed;

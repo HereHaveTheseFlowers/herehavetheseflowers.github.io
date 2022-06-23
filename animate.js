@@ -6,7 +6,7 @@ function drawObjects() {
   c.save();
   for(let obj of floorObjs) {
     if(obj.item)
-      MakeShadow(6, -3, 12, 'rgba(0,20,0,0.18)');
+      MakeShadow(6, -3, 12, 'rgba(0,20,0,0.10)');
     obj.draw();
   }
   if(GLOB_debug) {
@@ -50,6 +50,8 @@ function drawObjects() {
     }
   }
   c.restore();
+  for(let obj of upperObjs)
+    obj.draw();
   /// INTERACT W/ OBJECTS
   for(let obj of interactableObjs) {
     if(CollisionDetectionRange(player, obj, GLOB_interactionRange)) {

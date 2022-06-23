@@ -26,6 +26,7 @@ let bgObjs = [];
 let playerObjs = [];
 let inventoryObjs = [];
 let debugObjs = [];
+let upperObjs = [];
 
 let solidObjs = [];
 let interactableObjs = [];
