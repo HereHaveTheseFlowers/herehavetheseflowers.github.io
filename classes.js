@@ -52,8 +52,8 @@ class Sprite {
 			new Sprite({
 				name: this.name + "_upper",
 				position: {
-					x: GLOB_bgOffset.x + this.position.x,
-					y: GLOB_bgOffset.y + this.position.y - Tiles(1)
+					x: this.position.x,
+					y: this.position.y - Tiles(1)
 				},
 				image: upperImageNew,
 				location: "upper",

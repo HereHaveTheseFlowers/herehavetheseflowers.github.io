@@ -4,9 +4,6 @@
 
 const GLOB_debug = false;
 
-const GLOB_playerSpriteWidth = 384;
-const GLOB_playerSpriteHeight = 96;
-
 const GLOB_movingSpeed = 3;
 
 const GLOB_interactionRange = 8;
@@ -16,7 +13,7 @@ const GLOB_tileSize = 16 * (GLOB_exportRatio / 100);
 function Tiles(numberOfTiles) {
     return numberOfTiles * GLOB_tileSize
 }
-const GLOB_bgOffset = { x:  - Tiles(0), y: - Tiles(0) };
+const GLOB_bgOffset = { x:  - Tiles(5), y: - Tiles(1) };
 
 
 //////// NON - CONSTANTS ////////
