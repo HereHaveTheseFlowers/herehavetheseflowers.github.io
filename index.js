@@ -29,8 +29,9 @@ const imageSeed = CreateImage('seed');
 const imageIconInteract = CreateImage('IconInteract');
 const imageIconPickup = CreateImage('IconPickup');
 
-///// OBJECTS
-
+////////////////////////
+//// PLAYER AND ICONS //
+////////////////////////
 const player = new Sprite({
   name: "player",
   position: {
@@ -99,8 +100,9 @@ const iconPickup= new Sprite({
   animationFrameRate: 50,
   image: imageIconPickup
 });
-
-//// BG AND DEBUG
+////////////////////////
+//// BG AND DEBUG   ////
+////////////////////////
 
 const background = new Sprite({
   name: "background",
@@ -111,6 +113,57 @@ const background = new Sprite({
   image: imageBG,
   location: "bg"
 });
+
+background.postLoad = function() {
+  if(this.name === "background") {
+    for(let i = 0; i < background.width / GLOB_tileSize; i++) {
+      const imageBorderCycles = CreateImage('border');
+      const imageBorderCycles2 = CreateImage('border');
+      const imageBorderCycles3 = CreateImage('border');
+      const imageBorderCycles4 = CreateImage('border');
+      new Sprite({
+          name: "border",
+          position: {
+              x: GLOB_bgOffset.x + Tiles(i),
+              y: GLOB_bgOffset.y - Tiles(1)
+          },
+          image: imageBorderCycles,
+          location: "debug",
+          solid: true
+      });
+      new Sprite({
+          name: "border",
+          position: {
+              x: GLOB_bgOffset.x + Tiles(i),
+              y: GLOB_bgOffset.y + background.height
+          },
+          image: imageBorderCycles2,
+          location: "debug",
+          solid: true
+      });
+      new Sprite({
+          name: "border",
+          position: {
+              x: GLOB_bgOffset.x - Tiles(1),
+              y: GLOB_bgOffset.y + Tiles(i)
+          },
+          image: imageBorderCycles3,
+          location: "debug",
+          solid: true
+      });
+      new Sprite({
+          name: "border",
+          position: {
+              x: GLOB_bgOffset.x + background.width,
+              y: GLOB_bgOffset.y + Tiles(i)
+          },
+          image: imageBorderCycles4,
+          location: "debug",
+          solid: true
+      });
+    }
+  }
+}
 
 const grid = new Sprite({
   name: "grid",
@@ -135,7 +188,9 @@ const border = new Sprite({
 });
 */
 
-//// FLOOR NON-ITEMS
+////////////////////////
+//// FLOOR NON-ITEMS////
+////////////////////////
 
 const pool = new Sprite({
   name: "pool",
@@ -161,7 +216,7 @@ pool.interact = function(obj) {
     }
   }
   else
-    chat.setText('Bring something to store the water in.');
+    chat.setText('You can fill something with water.');
 }
 
 const rocks1 = new Sprite({
@@ -205,8 +260,9 @@ for(let b = 0; b < 10; b++) {
 }
 */
 
-
-//// FLOOR ITEMS
+////////////////////////
+//// FLOOR ITEMS    ////
+////////////////////////
 
 const leaf = new Sprite({
   name: "leaf",
