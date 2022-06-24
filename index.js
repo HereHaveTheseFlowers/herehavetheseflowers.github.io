@@ -19,8 +19,7 @@ const imageBorder = CreateImage('border');
 
 const imagePool = CreateImage('pool');
 const imageRocks1 = CreateImage('rocks1');
-const imageRocks1Upper = CreateImage('rocks1upper');
-const imageRocks1Upper2 = CreateImage('rocks1upper');
+const imageRocks2 = CreateImage('rocks2');
 
 const imageLeaf = CreateImage('leaf');
 const imageLeafDroplet = CreateImage('leafDroplet');
@@ -176,6 +175,19 @@ const rocks1 = new Sprite({
   solid: true,
   upperImage: "rocks1upper"
 });
+
+const rocks2 = new Sprite({
+  name: "rocks2",
+  position: {
+      x: GLOB_bgOffset.x + Tiles(12),
+      y: GLOB_bgOffset.y + Tiles(2)
+  },
+  image: imageRocks2,
+  location: "floor",
+  solid: true,
+  upperImage: "rocks2upper"
+});
+
 
 /* Example on how to generate multiple objects automatically
 for(let b = 0; b < 10; b++) {
