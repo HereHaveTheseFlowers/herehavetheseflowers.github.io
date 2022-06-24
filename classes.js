@@ -12,6 +12,7 @@ class Sprite {
         this.animationFrameRate = animationFrameRate
         this.sprites = sprites
         this.location = location;
+        this.moving = false;
         switch(location) {
             case 'floor':
                 floorObjs.push(this);
@@ -21,6 +22,7 @@ class Sprite {
                 break;
             case 'player':
                 playerObjs.push(this);
+                this.moving = true;
                 break;
             case 'inventory':
                 inventoryObjs.push(this);
@@ -43,55 +45,7 @@ class Sprite {
         this.image.onload = () => {
             this.width = this.image.width / this.frames.max
             this.height = this.image.height
-            if(this.name === "background") {
-                for(let i = 0; i < background.width / GLOB_tileSize; i++) {
-                    const imageBorderCycles = CreateImage('border');
-                    const imageBorderCycles2 = CreateImage('border');
-                    const imageBorderCycles3 = CreateImage('border');
-                    const imageBorderCycles4 = CreateImage('border');
-                    new Sprite({
-                        name: "border",
-                        position: {
-                            x: GLOB_bgOffset.x + Tiles(i),
-                            y: GLOB_bgOffset.y - Tiles(1)
-                        },
-                        image: imageBorderCycles,
-                        location: "debug",
-                        solid: true
-                    });
-                    new Sprite({
-                        name: "border",
-                        position: {
-                            x: GLOB_bgOffset.x + Tiles(i),
-                            y: GLOB_bgOffset.y + background.height
-                        },
-                        image: imageBorderCycles2,
-                        location: "debug",
-                        solid: true
-                    });
-                    new Sprite({
-                        name: "border",
-                        position: {
-                            x: GLOB_bgOffset.x - Tiles(1),
-                            y: GLOB_bgOffset.y + Tiles(i)
-                        },
-                        image: imageBorderCycles3,
-                        location: "debug",
-                        solid: true
-                    });
-                    new Sprite({
-                        name: "border",
-                        position: {
-                            x: GLOB_bgOffset.x + background.width,
-                            y: GLOB_bgOffset.y + Tiles(i)
-                        },
-                        image: imageBorderCycles4,
-                        location: "debug",
-                        solid: true
-                    });
-                }
-            }
-            
+            this.postLoad();
         }
 		if(this.upperImage) {
 			const upperImageNew = CreateImage(this.upperImage);
@@ -106,7 +60,6 @@ class Sprite {
 				solid: false
 			});
 		}
-        this.moving = true;
         this.size = size;
     }
     draw() {
@@ -137,7 +90,7 @@ class Sprite {
     }
     interact= function () {
         console.log('not a player');
-        return false
+        return false;
     }
     moveLocation = function (newLoc) {
         switch(this.location) {
@@ -156,6 +109,9 @@ class Sprite {
             case 'player':
                 playerObjs = playerObjs.filter((item) => item.spriteID !== this.spriteID);
                 break;
+            case 'upper':
+                upperObjs = upperObjs.filter((item) => item.spriteID !== this.spriteID);
+                break;
         }
         switch(newLoc) {
             case 'floor':
@@ -173,8 +129,14 @@ class Sprite {
             case 'debug':
                 debugObjs.push(this);
                 break;
+            case 'upper':
+                upperObjs.push(this);
+                break;
         }
         this.location = newLoc;
+    }
+    postLoad = function () {
+        return;
     }
 }
 
