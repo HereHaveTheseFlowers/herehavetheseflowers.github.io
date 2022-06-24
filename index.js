@@ -20,6 +20,7 @@ const imageBorder = CreateImage('border');
 const imagePool = CreateImage('pool');
 const imageRocks1 = CreateImage('rocks1');
 const imageRocks2 = CreateImage('rocks2');
+const imageHome = CreateImage('home');
 
 const imageLeaf = CreateImage('leaf');
 const imageLeafDroplet = CreateImage('leafDroplet');
@@ -195,8 +196,8 @@ const border = new Sprite({
 const pool = new Sprite({
   name: "pool",
   position: {
-      x: GLOB_bgOffset.x + Tiles(5),
-      y: GLOB_bgOffset.y + Tiles(6)
+      x: GLOB_bgOffset.x + Tiles(7),
+      y: GLOB_bgOffset.y + Tiles(8)
   },
   image: imagePool,
   frames: { max: 2 },
@@ -222,8 +223,8 @@ pool.interact = function(obj) {
 const rocks1 = new Sprite({
   name: "rocks1",
   position: {
-      x: GLOB_bgOffset.x + Tiles(6),
-      y: GLOB_bgOffset.y + Tiles(2)
+      x: GLOB_bgOffset.x + Tiles(2),
+      y: GLOB_bgOffset.y + Tiles(5)
   },
   image: imageRocks1,
   location: "floor",
@@ -234,8 +235,8 @@ const rocks1 = new Sprite({
 const rocks2 = new Sprite({
   name: "rocks2",
   position: {
-      x: GLOB_bgOffset.x + Tiles(12),
-      y: GLOB_bgOffset.y + Tiles(2)
+      x: GLOB_bgOffset.x + Tiles(14),
+      y: GLOB_bgOffset.y + Tiles(7)
   },
   image: imageRocks2,
   location: "floor",
@@ -243,6 +244,119 @@ const rocks2 = new Sprite({
   upperImage: "rocks2upper"
 });
 
+const home = new Sprite({
+  name: "home",
+  position: {
+      x: GLOB_bgOffset.x + Tiles(3),
+      y: GLOB_bgOffset.y + Tiles(0)
+  },
+  image: imageHome,
+  location: "floor",
+  solid: false
+});
+
+// home borders
+home.postLoad = function() {
+  const imageBorder1 = CreateImage('border');
+  const imageBorder2 = CreateImage('border');
+  const imageBorder3 = CreateImage('border');
+  const imageBorder4 = CreateImage('border');
+  const imageBorder5 = CreateImage('border');
+  const imageBorder6 = CreateImage('border');
+  const imageBorder7 = CreateImage('border');
+  const imageBorder8 = CreateImage('border');
+  const imageBorder9 = CreateImage('border');
+  const border1 = new Sprite({
+      name: "border",
+      position: {
+          x: this.position.x + Tiles(3),
+          y: this.position.y
+      },
+      image: imageBorder1,
+      location: "debug",
+      solid: true
+  });
+  const border2 = new Sprite({
+      name: "border",
+      position: {
+          x: this.position.x + Tiles(3),
+          y: this.position.y + Tiles(1)
+      },
+      image: imageBorder2,
+      location: "debug",
+      solid: true
+  });
+  const border3 = new Sprite({
+      name: "border",
+      position: {
+          x: this.position.x + Tiles(3),
+          y: this.position.y + Tiles(2)
+      },
+      image: imageBorder3,
+      location: "debug",
+      solid: true
+  });
+  const border4 = new Sprite({
+      name: "border",
+      position: {
+        x: this.position.x + Tiles(4),
+        y: this.position.y + Tiles(2)
+      },
+      image: imageBorder4,
+      location: "debug",
+      solid: true
+  });
+  const border5 = new Sprite({
+      name: "border",
+      position: {
+        x: this.position.x + Tiles(5),
+        y: this.position.y + Tiles(2)
+      },
+      image: imageBorder5,
+      location: "debug",
+      solid: true
+  });
+  const border6 = new Sprite({
+    name: "border",
+    position: {
+      x: this.position.x + Tiles(6),
+      y: this.position.y + Tiles(2)
+    },
+    image: imageBorder6,
+    location: "debug",
+    solid: true
+  });
+  const border7 = new Sprite({
+    name: "border",
+    position: {
+      x: this.position.x + Tiles(7),
+      y: this.position.y + Tiles(2)
+    },
+    image: imageBorder7,
+    location: "debug",
+    solid: true
+  });
+  const border8 = new Sprite({
+    name: "border",
+    position: {
+      x: this.position.x + Tiles(7),
+      y: this.position.y + Tiles(1)
+    },
+    image: imageBorder8,
+    location: "debug",
+    solid: true
+  });
+  const border9 = new Sprite({
+    name: "border",
+    position: {
+      x: this.position.x + Tiles(7),
+      y: this.position.y + Tiles(0)
+    },
+    image: imageBorder9,
+    location: "debug",
+    solid: true
+  });
+}
 
 /* Example on how to generate multiple objects automatically
 for(let b = 0; b < 10; b++) {
@@ -268,7 +382,7 @@ const leaf = new Sprite({
   name: "leaf",
   position: {
       x: GLOB_bgOffset.x + Tiles(9),
-      y: GLOB_bgOffset.y + Tiles(4)
+      y: GLOB_bgOffset.y + Tiles(6)
   },
   image: imageLeaf,
   solid: false,
@@ -283,8 +397,8 @@ const leaf = new Sprite({
 const seed = new Sprite({
   name: "seed",
   position: {
-      x: GLOB_bgOffset.x + Tiles(8),
-      y: GLOB_bgOffset.y + Tiles(4)
+      x: GLOB_bgOffset.x + Tiles(12),
+      y: GLOB_bgOffset.y + Tiles(7)
   },
   image: imageSeed,
   solid: false,
