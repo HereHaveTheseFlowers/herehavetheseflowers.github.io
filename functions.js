@@ -31,34 +31,34 @@ function CollisionDetection (objOne, objTwo, dir = "none") {
         if(GLOB_debug) {
           c.fillStyle = 'yellow'
           c.globalAlpha = 0.01;
-          c.fillRect(objOne.position.x + 30, objOne.position.y + 10, objOne.width - 60, objOne.height - 12)
+          c.fillRect(objOne.position.x + 30, objOne.position.y + 60, objOne.width - 60, objOne.height - 62)
           c.globalAlpha = 1;
         }
-        return (objOne.position.x + 30 < objTwo.position.x +  objTwo.width) && (objOne.position.x +  objOne.width - 30 > objTwo.position.x) && (objOne.position.y + 10 < objTwo.position.y +  objTwo.height) && (objOne.position.y - 2 +  objOne.height > objTwo.position.y)
+        return (objOne.position.x + 30 < objTwo.position.x +  objTwo.width) && (objOne.position.x +  objOne.width - 30 > objTwo.position.x) && (objOne.position.y + 60 < objTwo.position.y +  objTwo.height) && (objOne.position.y - 2 +  objOne.height > objTwo.position.y)
       case 'East':
         if(GLOB_debug) {
           c.fillStyle = 'yellow'
           c.globalAlpha = 0.01;
-          c.fillRect(objOne.position.x + 32, objOne.position.y + 12, objOne.width - 60, objOne.height - 12)
+          c.fillRect(objOne.position.x + 32, objOne.position.y + 64, objOne.width - 60, objOne.height - 64)
           c.globalAlpha = 1;
         }
-        return (objOne.position.x + 32 < objTwo.position.x +  objTwo.width) && (objOne.position.x +  objOne.width - 28 > objTwo.position.x) && (objOne.position.y + 12 < objTwo.position.y +  objTwo.height) && (objOne.position.y +  objOne.height > objTwo.position.y)
+        return (objOne.position.x + 32 < objTwo.position.x +  objTwo.width) && (objOne.position.x +  objOne.width - 28 > objTwo.position.x) && (objOne.position.y + 64 < objTwo.position.y +  objTwo.height) && (objOne.position.y +  objOne.height > objTwo.position.y)
       case 'South':
         if(GLOB_debug) {
           c.fillStyle = 'yellow'
           c.globalAlpha = 0.01;
-          c.fillRect(objOne.position.x + 30, objOne.position.y + 12, objOne.width - 60, objOne.height - 10)
+          c.fillRect(objOne.position.x + 30, objOne.position.y + 64, objOne.width - 60, objOne.height - 62)
           c.globalAlpha = 1;
         }
-        return (objOne.position.x + 30 < objTwo.position.x +  objTwo.width) && (objOne.position.x +  objOne.width - 30 > objTwo.position.x) && (objOne.position.y + 12 < objTwo.position.y +  objTwo.height) && (objOne.position.y +  objOne.height + 2 > objTwo.position.y)
+        return (objOne.position.x + 30 < objTwo.position.x +  objTwo.width) && (objOne.position.x +  objOne.width - 30 > objTwo.position.x) && (objOne.position.y + 64 < objTwo.position.y +  objTwo.height) && (objOne.position.y +  objOne.height + 2 > objTwo.position.y)
       case 'West':
         if(GLOB_debug) {
           c.fillStyle = 'yellow'
           c.globalAlpha = 0.01;
-          c.fillRect(objOne.position.x + 28, objOne.position.y + 12, objOne.width - 60, objOne.height - 12)
+          c.fillRect(objOne.position.x + 28, objOne.position.y + 64, objOne.width - 60, objOne.height - 64)
           c.globalAlpha = 1;
         }
-        return (objOne.position.x + 28 < objTwo.position.x +  objTwo.width) && (objOne.position.x +  objOne.width - 32 > objTwo.position.x) && (objOne.position.y + 12 < objTwo.position.y +  objTwo.height) && (objOne.position.y +  objOne.height > objTwo.position.y)
+        return (objOne.position.x + 28 < objTwo.position.x +  objTwo.width) && (objOne.position.x +  objOne.width - 32 > objTwo.position.x) && (objOne.position.y + 64 < objTwo.position.y +  objTwo.height) && (objOne.position.y +  objOne.height > objTwo.position.y)
       default:
         if(GLOB_debug) {
           c.fillStyle = 'red'

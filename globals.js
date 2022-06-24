@@ -1,8 +1,7 @@
 // !!!  CONSTANTS  !!!! //
 
 /// TILES
-
-const GLOB_debug = false;
+const GLOB_debug = true;
 
 const GLOB_movingSpeed = 3;
 
