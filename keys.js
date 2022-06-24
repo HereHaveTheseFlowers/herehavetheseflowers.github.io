@@ -12,7 +12,7 @@ window.addEventListener('keydown', (e) => {
         case 'd':
             keys.d.pressed = true;
             break;
-        case 'ArrowDown':
+        case 'ArrowDown':   
             keys.s.pressed = true;
             break;
         case 'ArrowLeft':
@@ -24,10 +24,46 @@ window.addEventListener('keydown', (e) => {
         case 'ArrowUp':
             keys.w.pressed = true;
             break;
+        case 'W':
+            keys.w.pressed = true;
+            break;
+        case 'A':
+            keys.a.pressed = true;
+            break;
+        case 'S':
+            keys.s.pressed = true;
+            break;
+        case 'D':
+            keys.d.pressed = true;
+            break;
+        case 'ц':
+            keys.w.pressed = true;
+            break;
+        case 'ф':
+            keys.a.pressed = true;
+            break;
+        case 'ы':
+            keys.s.pressed = true;
+            break;
+        case 'в':
+            keys.d.pressed = true;
+            break;
         case 'e':
             keys.e.pressed = true;
             break;
         case 'p':
+            keys.p.pressed = true;
+            break;
+        case 'E':
+            keys.e.pressed = true;
+            break;
+        case 'P':
+            keys.p.pressed = true;
+            break;
+        case 'у':
+            keys.e.pressed = true;
+            break;
+        case 'з':
             keys.p.pressed = true;
             break;
   }
@@ -59,10 +95,46 @@ window.addEventListener('keyup', (e) => {
         case 'ArrowUp':
             keys.w.pressed = false
             break
+        case 'W':
+            keys.w.pressed = false
+            break
+        case 'A':
+            keys.a.pressed = false
+            break
+        case 'S':
+            keys.s.pressed = false
+            break
+        case 'D':
+            keys.d.pressed = false
+            break
+        case 'ц':
+            keys.w.pressed = false
+            break
+        case 'ф':
+            keys.a.pressed = false
+            break
+        case 'ы':
+            keys.s.pressed = false
+            break
+        case 'в':
+            keys.d.pressed = false
+            break
         case 'e':
             keys.e.pressed = false
             break
         case 'p':
+            keys.p.pressed = false
+            break
+        case 'E':
+            keys.e.pressed = false
+            break
+        case 'P':
+            keys.p.pressed = false
+            break
+        case 'у':
+            keys.e.pressed = false
+            break
+        case 'з':
             keys.p.pressed = false
             break
   }
