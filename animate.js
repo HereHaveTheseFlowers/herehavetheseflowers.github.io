@@ -1,4 +1,4 @@
-
+let debugTimer = 0
 function drawObjects() {
   /// DRAWING BG and Floor 
   for(let obj of bgObjs)
@@ -9,10 +9,13 @@ function drawObjects() {
       MakeShadow(6, -3, 12, 'rgba(0,20,0,0.10)');
     obj.draw();
   }
-  if(GLOB_debug) {
+  if(GLOB_debug && debugTimer >= 2) {
+    debugTimer = 0;
     for(let obj of debugObjs)
         obj.draw();
   }
+  else
+    debugTimer++
   /// DRAWING PLAYER
   for(let obj of inventoryObjs)
     if(player.image === player.sprites.up) {

@@ -12,7 +12,7 @@ class Sprite {
         this.animationFrameRate = animationFrameRate
         this.sprites = sprites
         this.location = location;
-        this.moving = false;
+        this.moving = true;
         switch(location) {
             case 'floor':
                 floorObjs.push(this);

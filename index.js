@@ -126,7 +126,7 @@ background.postLoad = function() {
           name: "border",
           position: {
               x: GLOB_bgOffset.x + Tiles(i),
-              y: GLOB_bgOffset.y - Tiles(1)
+              y: GLOB_bgOffset.y
           },
           image: imageBorderCycles,
           location: "debug",
