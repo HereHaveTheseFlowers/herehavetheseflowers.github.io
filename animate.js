@@ -30,21 +30,21 @@ function drawObjects() {
     if(player.image === player.sprites.left) {
       obj.position = {
         x: player.position.x + Tiles(1) / 6 - 20,
-        y: player.position.y + Tiles(1) / 2
+        y: player.position.y + Tiles(1) / 3 + 8
       }
       obj.draw();
     }
     else if(player.image === player.sprites.right) {
       obj.position = {
         x: player.position.x + Tiles(1) / 6 + 20,
-        y: player.position.y + Tiles(1) / 2
+        y: player.position.y + Tiles(1) / 3 + 8
       }
       obj.draw();
     }
     else if(player.image === player.sprites.down) {
       obj.position = {
         x: player.position.x + Tiles(1) / 6,
-        y: player.position.y + Tiles(1) / 2
+        y: player.position.y + Tiles(1) / 3 + 8
       }
       obj.draw();
     }

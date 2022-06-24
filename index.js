@@ -19,8 +19,7 @@ const imageBorder = CreateImage('border');
 
 const imagePool = CreateImage('pool');
 const imageRocks1 = CreateImage('rocks1');
-const imageRocks1Upper = CreateImage('rocks1upper');
-const imageRocks1Upper2 = CreateImage('rocks1upper');
+const imageRocks2 = CreateImage('rocks2');
 
 const imageLeaf = CreateImage('leaf');
 const imageLeafDroplet = CreateImage('leafDroplet');
@@ -86,6 +85,7 @@ const iconInteract = new Sprite({
     x: Tiles(5),
     y: Tiles(2)
   },
+  animationFrameRate: 50,
   image: imageIconInteract
 });
 
@@ -96,8 +96,11 @@ const iconPickup= new Sprite({
     x: 0,
     y: 0
   },
+  animationFrameRate: 50,
   image: imageIconPickup
 });
+
+//// BG AND DEBUG
 
 const background = new Sprite({
   name: "background",
@@ -118,6 +121,21 @@ const grid = new Sprite({
   image: imageGrid,
   location: "debug"
 });
+
+/* use this for creating invisible borders
+const border = new Sprite({
+  name: "border",
+  position: {
+      x: GLOB_bgOffset.x + Tiles(2),
+      y: GLOB_bgOffset.y + Tiles(2)
+  },
+  image: imageBorder,
+  location: "debug",
+  solid: true
+});
+*/
+
+//// FLOOR NON-ITEMS
 
 const pool = new Sprite({
   name: "pool",
@@ -146,18 +164,49 @@ pool.interact = function(obj) {
     chat.setText('Bring something to store the water in.');
 }
 
-/* use this for creating invisible borders
-const border = new Sprite({
-  name: "border",
+const rocks1 = new Sprite({
+  name: "rocks1",
   position: {
-      x: GLOB_bgOffset.x + Tiles(2),
+      x: GLOB_bgOffset.x + Tiles(6),
       y: GLOB_bgOffset.y + Tiles(2)
   },
-  image: imageBorder,
-  location: "debug",
-  solid: true
+  image: imageRocks1,
+  location: "floor",
+  solid: true,
+  upperImage: "rocks1upper"
 });
+
+const rocks2 = new Sprite({
+  name: "rocks2",
+  position: {
+      x: GLOB_bgOffset.x + Tiles(12),
+      y: GLOB_bgOffset.y + Tiles(2)
+  },
+  image: imageRocks2,
+  location: "floor",
+  solid: true,
+  upperImage: "rocks2upper"
+});
+
+
+/* Example on how to generate multiple objects automatically
+for(let b = 0; b < 10; b++) {
+  const image1 = CreateImage('rocks1');
+  new Sprite({
+    name: "rocks1",
+    position: {
+        x: GLOB_bgOffset.x + Tiles(b*3),
+        y: GLOB_bgOffset.y + 1
+    },
+    image: image1,
+    location: "floor",
+    solid: true
+  });
+}
 */
+
+
+//// FLOOR ITEMS
 
 const leaf = new Sprite({
   name: "leaf",
@@ -186,31 +235,3 @@ const seed = new Sprite({
   item: true,
   location: "floor"
 });
-
-const rocks1 = new Sprite({
-  name: "rocks1",
-  position: {
-      x: GLOB_bgOffset.x + Tiles(6),
-      y: GLOB_bgOffset.y + Tiles(2)
-  },
-  image: imageRocks1,
-  location: "floor",
-  solid: true,
-  upperImage: "rocks1upper"
-});
-
-/* Example on how to generate multiple objects automatically
-for(let b = 0; b < 10; b++) {
-  const image1 = CreateImage('rocks1');
-  new Sprite({
-    name: "rocks1",
-    position: {
-        x: GLOB_bgOffset.x + Tiles(b*3),
-        y: GLOB_bgOffset.y + 1
-    },
-    image: image1,
-    location: "floor",
-    solid: true
-  });
-}
-*/
