@@ -2,7 +2,7 @@
 
 /// TILES
 
-const GLOB_debug = true;
+const GLOB_debug = false;
 
 let GLOB_movingSpeed = 3;
 
