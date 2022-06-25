@@ -2,7 +2,7 @@
 
 /// TILES
 
-const GLOB_debug = true;
+const GLOB_debug = false;
 
 const GLOB_interactionRange = 8;
 
