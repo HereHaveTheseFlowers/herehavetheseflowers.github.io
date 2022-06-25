@@ -4,8 +4,6 @@
 
 const GLOB_debug = false;
 
-const GLOB_GameSpeed = 2;
-
 const GLOB_movingSpeed = 3;
 
 const GLOB_interactionRange = 8;
