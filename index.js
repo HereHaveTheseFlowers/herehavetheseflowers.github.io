@@ -14,8 +14,6 @@ const imageBG = CreateImage('bg2');
 
 // floor
 const imagePool = CreateImage('pool');
-const imageRocks1 = CreateImage('rocks1');
-const imageRocks2 = CreateImage('rocks2');
 const imageHome = CreateImage('home');
 const imageDoor = CreateImage('door');
 
@@ -233,30 +231,6 @@ pool.interact = function(obj) {
   else
     chat.setText('You can fill something with water.');
 }
-
-const rocks1 = new Sprite({
-  name: "rocks1",
-  position: {
-      x: GLOB_bgOffset.x + Tiles(2),
-      y: GLOB_bgOffset.y + Tiles(5)
-  },
-  image: imageRocks1,
-  location: "floor",
-  solid: true,
-  upperImage: "rocks1upper"
-});
-
-const rocks2 = new Sprite({
-  name: "rocks2",
-  position: {
-      x: GLOB_bgOffset.x + Tiles(14),
-      y: GLOB_bgOffset.y + Tiles(7)
-  },
-  image: imageRocks2,
-  location: "floor",
-  solid: true,
-  upperImage: "rocks2upper"
-});
 
 const home = new Sprite({
   name: "home",
