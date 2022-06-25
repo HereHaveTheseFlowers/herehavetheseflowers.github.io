@@ -171,3 +171,8 @@ function HandlePlayerMovement(dir) {
       break;
   }
 }
+
+
+function pickRand(array) {
+  return array[Math.floor(Math.random()*array.length)];
+}

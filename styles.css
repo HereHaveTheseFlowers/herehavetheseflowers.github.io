@@ -49,7 +49,6 @@ canvas {
     image-rendering:pixelated;
 }
 .text {
-    text-align: center;
     margin-top: 20px;
     text-align: center;
     font-size: 40px;
@@ -57,11 +56,27 @@ canvas {
 }
 
 #loading {
-    position: relative;
-    text-align: center;
-    margin-top: 200px;
-    text-align: center;
-    font-size: 200px;
-    color: #cbc8c8;
+    background: url(../img/logo-600.png);
+    height: 672px;
+    width: 1056px;
+    margin: auto auto;
+    display: flex;
 }
 
+#start {
+    position: block;
+    transform: translateY(200px);
+    border: 0px;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url(../img/buttonstart-600.png);
+    height: 84px;
+    width: 258px;
+    margin: auto auto;
+}
+
+#start:hover {
+    background-image: url(../img/buttonstarthover-600.png);
+}
+#start:active {
+    background-image: url(../img/buttonstartactive-600.png);
+}
