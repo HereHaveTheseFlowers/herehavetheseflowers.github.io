@@ -1,5 +1,4 @@
 const mainCanvas =document.querySelector('canvas');
-mainCanvas.style.display = 'none';
 
 const loading = document.getElementById('loading');
 const loadingtext = document.getElementById('loadingcontent');

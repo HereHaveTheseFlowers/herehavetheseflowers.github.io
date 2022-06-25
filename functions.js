@@ -6,13 +6,19 @@ function MakeShadow(shadowOffsetX, shadowOffsetY, shadowBlur, shadowColor) {
   c.shadowColor = shadowColor;
 }
 
-function CreateImage(imagename, custom_path = false) {
-    const output = new Image();
-    if(custom_path)
-        output.src = imagename;
+function CreateImage(imagename, folder = false, custom_path = false) {
+  const output = new Image();
+  if(custom_path)
+    output.src = imagename;
+  else {
+    if(folder) {
+      folder = folder + '/';
+      output.src = './img/' + folder + imagename + '-' + GLOB_exportRatio + '.png';
+    }
     else
-        output.src = './img/' + imagename + '-' + GLOB_exportRatio + '.png';
-    return output;
+      output.src = './img/' + imagename + '-' + GLOB_exportRatio + '.png';
+  }
+  return output;
 }
 
 /// OBJ COLLISION
@@ -65,7 +71,7 @@ function CollisionDetection (objOne, objTwo, dir = "none") {
       default:
         if(GLOB_debug) {
           c.fillStyle = 'red'
-          c.globalAlpha = 0.1;
+          c.globalAlpha = 0.01;
           c.fillRect(objOne.position.x, objOne.position.y, objOne.width, objOne.height)
           c.globalAlpha = 1;
         }
@@ -182,7 +188,7 @@ function PickRand(...array) {
   }
 }
 
-function PopulateAreaWith(areaX, areaY, areaWidth, areaHeight, mushrooms = 0, rocks = 0) {
+function PopulateAreaWith(areaX, areaY, areaWidth, areaHeight, leafs = 0, rocks = 0, mushrooms = 0) {
   let locArray = [];
   for(let i = areaX; i < areaX + areaWidth;) {
     for(let j = areaY; j < areaY + areaHeight;) {
@@ -191,12 +197,35 @@ function PopulateAreaWith(areaX, areaY, areaWidth, areaHeight, mushrooms = 0, ro
     }
     i += Tiles(1);
   }
-
-  console.log("GENERATING ROCKS");
+  for(let i = 0; i < leafs; i++) {
+    //name
+    const objNumber = PickRand(1, 2, 3);
+    //location
+    const locIndex = Math.floor(Math.random()*locArray.length);
+    const loc = locArray[locIndex];
+    //clearing locArray
+    locArray.splice(locIndex, 1)
+    // creating an obj
+    const imageDroplet = CreateImage('leaf' + objNumber + 'Droplet');
+    const newObj = new Sprite({
+      name: "leaf",
+      position: {
+        x: GLOB_bgOffset.x + loc[0],
+        y: GLOB_bgOffset.y + loc[1]
+      },
+      image: 'leaf' + objNumber,
+      location: "floor",
+      item: true,
+      sprites: {
+        default: this.image,
+        droplet: imageDroplet
+      }
+    });
+  }
   for(let i = 0; i < rocks; i++) {
     //name
-    const rockType = PickRand('Small', 'Medium', 'Large');
-    const rockNumber = PickRand(1, 2)
+    const objType = PickRand('Small', 'Medium', 'Large');
+    const objNumber = PickRand(1, 2)
     //location
     let foundLoc = false;
     let foundLocTimer = 0;
@@ -205,13 +234,12 @@ function PopulateAreaWith(areaX, areaY, areaWidth, areaHeight, mushrooms = 0, ro
     while (!foundLoc) {
       locIndex = Math.floor(Math.random()*locArray.length);
       loc = locArray[locIndex];
-      console.log(locIndex)
-      if(rockType === 'Small')
+      if(objType === 'Small')
         foundLoc = true;
-      if(rockType === 'Medium')
+      if(objType === 'Medium')
         if(locArray.find(element => element[0] === loc[0] + Tiles(1) && element[1] === loc[1]))
           foundLoc = true;
-      if(rockType === 'Large')
+      if(objType === 'Large')
         if(locArray.find(element => element[0] === loc[0] + Tiles(1) && element[1] === loc[1]) && locArray.find(element => element[0] === loc[0] + Tiles(2) && element[1] === loc[1]))
           foundLoc = true;
       if(foundLocTimer > locArray.length*5)
@@ -219,30 +247,69 @@ function PopulateAreaWith(areaX, areaY, areaWidth, areaHeight, mushrooms = 0, ro
       foundLocTimer++;
     }
     if(foundLoc === 2) break;
+
+    // making sure no more obj will spawn nearby
     locArray.splice(locIndex, 1)
-    if(rockType === 'Medium' || rockType === 'Large') {
-      let index1 = locArray.findIndex(element => element[0] === loc[0] + Tiles(1) && element[1] === loc[1])
-      if(index1 >= 0)
-        locArray.splice(index1, 1)
+    locArray.splice(locArray.findIndex(element => element[0] === loc[0] && element[1] === loc[1] - Tiles(1)), 1)
+    locArray.splice(locArray.findIndex(element => element[0] === loc[0] && element[1] === loc[1] + Tiles(1)), 1)
+    locArray.splice(locArray.findIndex(element => element[0] === loc[0] - Tiles(1) && element[1] === loc[1]), 1)
+    locArray.splice(locArray.findIndex(element => element[0] === loc[0] + Tiles(1) && element[1] === loc[1]), 1)
+    if(objType === 'Medium' || objType === 'Large') {
+      locArray.splice(locArray.findIndex(element => element[0] === loc[0] + Tiles(1) && element[1] === loc[1] + Tiles(1)), 1)
+      locArray.splice(locArray.findIndex(element => element[0] === loc[0] + Tiles(1) && element[1] === loc[1] - Tiles(1)), 1)
+      locArray.splice(locArray.findIndex(element => element[0] === loc[0] + Tiles(2) && element[1] === loc[1]), 1)
     }
-    if(rockType === 'Large') {
-      let index2 = locArray.findIndex(element => element[0] === loc[0] + Tiles(2) && element[1] === loc[1])
-      if(index2 >= 0)
-        locArray.splice(index2, 1)
+    if(objType === 'Large') {
+      locArray.splice(locArray.findIndex(element => element[0] === loc[0] + Tiles(3) && element[1] === loc[1]), 1)
+      locArray.splice(locArray.findIndex(element => element[0] === loc[0] + Tiles(2) && element[1] === loc[1] + Tiles(1)), 1)
+      locArray.splice(locArray.findIndex(element => element[0] === loc[0] + Tiles(2) && element[1] === loc[1] - Tiles(1)), 1)
     }
-    const pickedImageRocks = CreateImage('rocks' + rockType + rockNumber);
-    const newrock = new Sprite({
-      name: "rocks1",
+
+    // creating the obj
+    const newObj = new Sprite({
+      name: "rocks",
       position: {
           x: GLOB_bgOffset.x + loc[0],
           y: GLOB_bgOffset.y + loc[1]
       },
-      image: pickedImageRocks,
+      image: 'rocks' + objType + objNumber,
       location: "floor",
       solid: true,
-      upperImage: rockType === 'Small' ? false : ('rocks' + rockType + rockNumber + 'upper')
+      upperImage: objType === 'Small' ? false : ('rocks' + objType + objNumber + 'upper'),
+      folder: 'rocks'
+    });
+  }
+  for(let i = 0; i < mushrooms; i++) {
+    //name
+    const objType = PickRand('Small', 'Medium', 'Large');
+    const objColor = PickRand('Red', 'Brown');
+    const objNumber = objColor === 'Brown' ? '1' : (PickRand(1, 2, 3));
+    //location
+    const locIndex = Math.floor(Math.random()*locArray.length);
+    const loc = locArray[locIndex];
+    //clearing locArray
+    locArray.splice(locIndex, 1)
+    locArray.splice(locArray.findIndex(element => element[0] === loc[0] && element[1] === loc[1] - Tiles(1)), 1)
+    locArray.splice(locArray.findIndex(element => element[0] === loc[0] && element[1] === loc[1] + Tiles(1)), 1)
+    locArray.splice(locArray.findIndex(element => element[0] === loc[0] - Tiles(1) && element[1] === loc[1]), 1)
+    locArray.splice(locArray.findIndex(element => element[0] === loc[0] + Tiles(1) && element[1] === loc[1]), 1)
+    // creating an obj
+    const newObj = new Sprite({
+      name: "mushroom",
+      position: {
+          x: GLOB_bgOffset.x + loc[0],
+          y: GLOB_bgOffset.y + loc[1]
+      },
+      image: 'mushroom' + objColor + objType + objNumber,
+      location: "floor",
+      solid: objType === 'Small' ? false : true,
+      upperImage: objType === 'Large' ? ('mushroom' + objColor +  objType + objNumber + 'upper') : false,
+      folder: 'mushrooms',
+      item: objType === 'Small' ? true : false
     });
   }
 }
 
-PopulateAreaWith(Tiles(11), Tiles(5), Tiles(8), Tiles(13), mushrooms = 0, rocks = 10)
+function IsInView(obj) {
+  return !(obj.position.x + obj.width < 0 || obj.position.y + obj.height < 0 || obj.position.x > Tiles(11) || obj.position.y >= Tiles(7))
+}
