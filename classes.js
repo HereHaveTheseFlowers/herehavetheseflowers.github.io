@@ -63,6 +63,8 @@ class Sprite {
         this.size = size;
     }
     draw() {
+        if(this.position.x + this.width < 0 || this.position.y + this.height < 0 || this.position.x > Tiles(11) || this.position.y >= Tiles(7))
+            return;
         c.drawImage(
             this.image,
             this.frames.val * this.width,
