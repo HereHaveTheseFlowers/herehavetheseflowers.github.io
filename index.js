@@ -8,31 +8,39 @@ const c = mainCanvas.getContext('2d');
 
 /// IMAGE UPLOAD
 
-const playerDownImage = CreateImage('playerDown');
-const playerUpImage = CreateImage('playerUp');
-const playerLeftImage = CreateImage('playerLeft');
-const playerRightImage = CreateImage('playerRight');
-
+// bg
 const imageBG = CreateImage('bg2');
-const imageGrid = CreateImage('grid');
-const imageBorder = CreateImage('border');
 
+
+// floor
 const imagePool = CreateImage('pool');
 const imageRocks1 = CreateImage('rocks1');
 const imageRocks2 = CreateImage('rocks2');
 const imageHome = CreateImage('home');
+const imageDoor = CreateImage('door');
 
+
+//items
 const imageLeaf = CreateImage('leaf');
 const imageLeafDroplet = CreateImage('leafDroplet');
 const imageLeaf2 = CreateImage('leaf2');
 const imageLeaf2Droplet = CreateImage('leaf2Droplet');
 const imageLeaf3 = CreateImage('leaf3');
 const imageLeaf3Droplet = CreateImage('leaf3Droplet');
-
 const imageSeed = CreateImage('seed');
 
+//player
+const playerDownImage = CreateImage('playerDown');
+const playerUpImage = CreateImage('playerUp');
+const playerLeftImage = CreateImage('playerLeft');
+const playerRightImage = CreateImage('playerRight');
+//none
 const imageIconInteract = CreateImage('IconInteract');
 const imageIconPickup = CreateImage('IconPickup');
+
+// debug
+const imageGrid = CreateImage('grid');
+const imageBorder = CreateImage('border');
 
 ////////////////////////
 //// PLAYER AND ICONS //
@@ -262,6 +270,17 @@ const home = new Sprite({
 
 // home borders
 home.postLoad = function() {
+  const door = new Sprite({
+    name: "door",
+    position: {
+        x: this.position.x +  Tiles(5),
+        y: this.position.y +  Tiles(2)
+    },
+    image: imageDoor,
+    location: "floor",
+    solid: true,
+    interactable: true
+  });
   const imageBorder1 = CreateImage('border');
   const imageBorder2 = CreateImage('border');
   const imageBorder3 = CreateImage('border');
@@ -362,6 +381,7 @@ home.postLoad = function() {
     solid: true
   });
 }
+
 
 /* Example on how to generate multiple objects automatically
 for(let b = 0; b < 10; b++) {

@@ -4,8 +4,6 @@
 
 const GLOB_debug = false;
 
-let GLOB_movingSpeed = 3;
-
 const GLOB_interactionRange = 8;
 
 const GLOB_exportRatio = 600;
@@ -17,6 +15,8 @@ const GLOB_bgOffset = { x:  - Tiles(5), y: - Tiles(1) };
 
 
 //////// NON - CONSTANTS ////////
+
+let GLOB_movingSpeed = 3;
 
 let floorObjs = [];
 let bgObjs = [];
