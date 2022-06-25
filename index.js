@@ -61,7 +61,8 @@ const player = new Sprite({
     right: playerRightImage,
     left: playerLeftImage
   },
-  location: "player"
+  location: "player",
+  animationFrameRate: 7,
 });
 let inventoryObj = false;
 
