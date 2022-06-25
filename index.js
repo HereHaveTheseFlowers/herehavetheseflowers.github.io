@@ -24,6 +24,10 @@ const imageHome = CreateImage('home');
 
 const imageLeaf = CreateImage('leaf');
 const imageLeafDroplet = CreateImage('leafDroplet');
+const imageLeaf2 = CreateImage('leaf2');
+const imageLeaf2Droplet = CreateImage('leaf2Droplet');
+const imageLeaf3 = CreateImage('leaf3');
+const imageLeaf3Droplet = CreateImage('leaf3Droplet');
 
 const imageSeed = CreateImage('seed');
 
@@ -208,12 +212,13 @@ const pool = new Sprite({
 });
 
 pool.interact = function(obj) {
-  if(inventoryObj === leaf) {
-    if(inventoryObj.image === leaf.sprites.droplet)
+  if(inventoryObj.name === "leaf") {
+    if(inventoryObj.name === "leaf with a droplet of water")
       chat.setText('You already have a droplet on your leaf!');
     else {
       chat.setText('You fill the leaf with a droplet of water.');
-      leaf.image = leaf.sprites.droplet;
+      inventoryObj.image = inventoryObj.sprites.droplet;
+      inventoryObj.name = "leaf with a droplet of water";
     }
   }
   else
@@ -391,6 +396,36 @@ const leaf = new Sprite({
   sprites: {
     default: imageLeaf,
     droplet: imageLeafDroplet
+  }
+});
+const leaf2 = new Sprite({
+  name: "leaf",
+  position: {
+      x: GLOB_bgOffset.x + Tiles(10),
+      y: GLOB_bgOffset.y + Tiles(6)
+  },
+  image: imageLeaf2,
+  solid: false,
+  item: true,
+  location: "floor",
+  sprites: {
+    default: imageLeaf2,
+    droplet: imageLeaf2Droplet
+  }
+});
+const leaf3 = new Sprite({
+  name: "leaf",
+  position: {
+      x: GLOB_bgOffset.x + Tiles(11),
+      y: GLOB_bgOffset.y + Tiles(6)
+  },
+  image: imageLeaf3,
+  solid: false,
+  item: true,
+  location: "floor",
+  sprites: {
+    default: imageLeaf3,
+    droplet: imageLeaf3Droplet
   }
 });
 
