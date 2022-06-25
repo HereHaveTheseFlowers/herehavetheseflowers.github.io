@@ -173,6 +173,76 @@ function HandlePlayerMovement(dir) {
 }
 
 
-function pickRand(array) {
-  return array[Math.floor(Math.random()*array.length)];
+function PickRand(...array) {
+  for(let item of array) {
+    if(Array.isArray(item))
+      return item[Math.floor(Math.random()*item.length)];
+    else
+      return array[Math.floor(Math.random()*array.length)];
+  }
 }
+
+function PopulateAreaWith(areaX, areaY, areaWidth, areaHeight, mushrooms = 0, rocks = 0) {
+  let locArray = [];
+  for(let i = areaX; i < areaX + areaWidth;) {
+    for(let j = areaY; j < areaY + areaHeight;) {
+      locArray.push([i, j]);
+      j += Tiles(1);
+    }
+    i += Tiles(1);
+  }
+
+  console.log("GENERATING ROCKS");
+  for(let i = 0; i < rocks; i++) {
+    //name
+    const rockType = PickRand('Small', 'Medium', 'Large');
+    const rockNumber = PickRand(1, 2)
+    //location
+    let foundLoc = false;
+    let foundLocTimer = 0;
+    let locIndex = 0;
+    let loc = 0;
+    while (!foundLoc) {
+      locIndex = Math.floor(Math.random()*locArray.length);
+      loc = locArray[locIndex];
+      console.log(locIndex)
+      if(rockType === 'Small')
+        foundLoc = true;
+      if(rockType === 'Medium')
+        if(locArray.find(element => element[0] === loc[0] + Tiles(1) && element[1] === loc[1]))
+          foundLoc = true;
+      if(rockType === 'Large')
+        if(locArray.find(element => element[0] === loc[0] + Tiles(1) && element[1] === loc[1]) && locArray.find(element => element[0] === loc[0] + Tiles(2) && element[1] === loc[1]))
+          foundLoc = true;
+      if(foundLocTimer > locArray.length*5)
+        foundLoc = 2; // failed to find a loc
+      foundLocTimer++;
+    }
+    if(foundLoc === 2) break;
+    locArray.splice(locIndex, 1)
+    if(rockType === 'Medium' || rockType === 'Large') {
+      let index1 = locArray.findIndex(element => element[0] === loc[0] + Tiles(1) && element[1] === loc[1])
+      if(index1 >= 0)
+        locArray.splice(index1, 1)
+    }
+    if(rockType === 'Large') {
+      let index2 = locArray.findIndex(element => element[0] === loc[0] + Tiles(2) && element[1] === loc[1])
+      if(index2 >= 0)
+        locArray.splice(index2, 1)
+    }
+    const pickedImageRocks = CreateImage('rocks' + rockType + rockNumber);
+    const newrock = new Sprite({
+      name: "rocks1",
+      position: {
+          x: GLOB_bgOffset.x + loc[0],
+          y: GLOB_bgOffset.y + loc[1]
+      },
+      image: pickedImageRocks,
+      location: "floor",
+      solid: true,
+      upperImage: rockType === 'Small' ? false : ('rocks' + rockType + rockNumber + 'upper')
+    });
+  }
+}
+
+PopulateAreaWith(Tiles(11), Tiles(5), Tiles(8), Tiles(13), mushrooms = 0, rocks = 10)
