@@ -2,15 +2,14 @@ function drawObjects() {
   /// DRAWING BG and Floor 
   for(let obj of bgObjs)
       obj.draw();
+  for(let obj of floorObjs)
+    if(!obj.item)
+      obj.draw()
   c.save();
-  for(let obj of floorObjs) {
+  MakeShadow(6, -3, 12, 'rgba(0,20,0,0.20)');
+  for(let obj of floorObjs)
     if(obj.item)
-      MakeShadow(6, -3, 12, 'rgba(0,20,0,0.10)');
-    obj.draw();
-  }
-  if(GLOB_debug)
-    for(let obj of debugObjs)
-        obj.draw();
+      obj.draw();
   /// DRAWING PLAYER
   for(let obj of inventoryObjs)
     if(player.image === player.sprites.up) {
@@ -83,6 +82,9 @@ function drawObjects() {
       pickupTimer = 0;
     }
   }
+  if(GLOB_debug)
+    for(let obj of debugObjs)
+        obj.draw();
 }
 
   /// ANIMATE
@@ -100,13 +102,22 @@ function checkFrames () {
     let frames60 = (endTime - startTime) / GameSpeed + 1
     arrayFrames.unshift(frames60);
     arrayFrames = [arrayFrames[0], arrayFrames[1], arrayFrames[2], arrayFrames[3], arrayFrames[4]]
-    console.log(arrayFrames);
-    console.log(timer + ` frames took: ${frames60}ms`);
-    if(arrayFrames[0] > 450 && arrayFrames[1] > 450 && arrayFrames[2]  > 450 && arrayFrames[3]  > 450 && arrayFrames[4]  > 450)
-      GameSpeed++;
-    else if(GameSpeed > 1 && arrayFrames[0] > 250 && arrayFrames[1] > 250 && arrayFrames[2]  > 250 && arrayFrames[3]  > 250 && arrayFrames[4]  > 250)
-      GameSpeed--;
-    console.log('Setting GameSpeed as ' + GameSpeed)
+    if(GameSpeed === 1 && arrayFrames[0] > 450 && arrayFrames[1] > 450 && arrayFrames[2]  > 450 && arrayFrames[3]  > 450 && arrayFrames[4]  > 450) {
+      GameSpeed = 2;
+      GLOB_movingSpeed = 4;
+      console.log(arrayFrames);
+      console.log(timer + ` frames took: ${frames60}ms`);
+      console.log('Setting GameSpeed as ' + GameSpeed)
+      console.log('Setting MovingSpeed as ' + GLOB_movingSpeed)
+    }
+    else if(GameSpeed === 2 && arrayFrames[0] < 250 && arrayFrames[1] < 250 && arrayFrames[2]  < 250 && arrayFrames[3]  < 250 && arrayFrames[4]  < 250) {
+      GameSpeed = 1;
+      GLOB_movingSpeed = 3;
+      console.log(arrayFrames);
+      console.log(timer + ` frames took: ${frames60}ms`);
+      console.log('Setting GameSpeed as ' + GameSpeed)
+      console.log('Setting MovingSpeed as ' + GLOB_movingSpeed)
+    }
     startTime = new Date().getTime();
   }
   else {
