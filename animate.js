@@ -102,7 +102,7 @@ function checkFrames () {
     let frames60 = (endTime - startTime) / GameSpeed + 1
     arrayFrames.unshift(frames60);
     arrayFrames = [arrayFrames[0], arrayFrames[1], arrayFrames[2], arrayFrames[3], arrayFrames[4]]
-    if(GameSpeed === 1 && arrayFrames[0] > 450 && arrayFrames[1] > 450 && arrayFrames[2]  > 450 && arrayFrames[3]  > 450 && arrayFrames[4]  > 450) {
+    if(GameSpeed === 1 && arrayFrames[0] > 400 && arrayFrames[1] > 400 && arrayFrames[2]  > 400 && arrayFrames[3]  > 400 && arrayFrames[4]  > 400) {
       GameSpeed = 2;
       GLOB_movingSpeed = 4;
       console.log(arrayFrames);
@@ -110,9 +110,17 @@ function checkFrames () {
       console.log('Setting GameSpeed as ' + GameSpeed)
       console.log('Setting MovingSpeed as ' + GLOB_movingSpeed)
     }
-    else if(GameSpeed === 2 && arrayFrames[0] < 250 && arrayFrames[1] < 250 && arrayFrames[2]  < 250 && arrayFrames[3]  < 250 && arrayFrames[4]  < 250) {
+    else if(GameSpeed === 2 && arrayFrames[0] < 300 && arrayFrames[1] < 300 && arrayFrames[2]  < 300 && arrayFrames[3]  < 300 && arrayFrames[4]  < 300) {
       GameSpeed = 1;
       GLOB_movingSpeed = 3;
+      console.log(arrayFrames);
+      console.log(timer + ` frames took: ${frames60}ms`);
+      console.log('Setting GameSpeed as ' + GameSpeed)
+      console.log('Setting MovingSpeed as ' + GLOB_movingSpeed)
+    } 
+    else if(GameSpeed === 2 && arrayFrames[0] > 500 && arrayFrames[1] > 500 && arrayFrames[2]  > 500 && arrayFrames[3]  > 500 && arrayFrames[4]  > 500) {
+      GameSpeed = 2;
+      GLOB_movingSpeed = 5;
       console.log(arrayFrames);
       console.log(timer + ` frames took: ${frames60}ms`);
       console.log('Setting GameSpeed as ' + GameSpeed)
