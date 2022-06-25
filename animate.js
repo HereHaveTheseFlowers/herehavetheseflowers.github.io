@@ -86,15 +86,43 @@ function drawObjects() {
 }
 
   /// ANIMATE
-let debugTimer = 0;
+let drawTimer = 0;
+let GameSpeed = 1;
+let timer = 0;
+let startTime = new Date().getTime();
+let endTime = 0;
+let arrayFrames = [0, 0, 0, 0, 0];
+
+function checkFrames () {
+  if(timer === 0) {
+    endTime = new Date().getTime();
+    timer = 60;
+    let frames60 = (endTime - startTime) / GameSpeed + 1
+    arrayFrames.unshift(frames60);
+    arrayFrames = [arrayFrames[0], arrayFrames[1], arrayFrames[2], arrayFrames[3], arrayFrames[4]]
+    console.log(arrayFrames);
+    console.log(timer + ` frames took: ${frames60}ms`);
+    if(arrayFrames[0] > 450 && arrayFrames[1] > 450 && arrayFrames[2]  > 450 && arrayFrames[3]  > 450 && arrayFrames[4]  > 450)
+      GameSpeed++;
+    else if(GameSpeed > 1 && arrayFrames[0] > 250 && arrayFrames[1] > 250 && arrayFrames[2]  > 250 && arrayFrames[3]  > 250 && arrayFrames[4]  > 250)
+      GameSpeed--;
+    console.log('Setting GameSpeed as ' + GameSpeed)
+    startTime = new Date().getTime();
+  }
+  else {
+    timer--;
+  }
+}
+
 function animate() { 
   window.requestAnimationFrame(animate);
-  if(debugTimer >= GLOB_GameSpeed) {
-    debugTimer = 0;
+  checkFrames();
+  if(drawTimer >= GameSpeed) {
+    drawTimer = 0;
     drawObjects();
   }
   else {
-    debugTimer++
+    drawTimer++
   }
   /// PLAYER MOVEMENT
   player.moving = false;
