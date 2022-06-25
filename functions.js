@@ -34,7 +34,10 @@ function CollisionDetection (objOne, objTwo, dir = "none") {
           c.fillRect(objOne.position.x + 30, objOne.position.y + 60, objOne.width - 60, objOne.height - 62)
           c.globalAlpha = 1;
         }
-        return (objOne.position.x + 30 < objTwo.position.x +  objTwo.width) && (objOne.position.x +  objOne.width - 30 > objTwo.position.x) && (objOne.position.y + 60 < objTwo.position.y +  objTwo.height) && (objOne.position.y - 2 +  objOne.height > objTwo.position.y)
+        return  (objOne.position.x + 30 < objTwo.position.x +  objTwo.width) && 
+                (objOne.position.x +  objOne.width - 30 > objTwo.position.x) && 
+                (objOne.position.y + 60 < objTwo.position.y +  objTwo.height) && 
+                (objOne.position.y - 2 +  objOne.height > objTwo.position.y);
       case 'East':
         if(GLOB_debug) {
           c.fillStyle = 'yellow'

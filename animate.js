@@ -1,4 +1,3 @@
-let debugTimer = 0
 function drawObjects() {
   /// DRAWING BG and Floor 
   for(let obj of bgObjs)
@@ -9,13 +8,9 @@ function drawObjects() {
       MakeShadow(6, -3, 12, 'rgba(0,20,0,0.10)');
     obj.draw();
   }
-  if(GLOB_debug && debugTimer >= 2) {
-    debugTimer = 0;
+  if(GLOB_debug)
     for(let obj of debugObjs)
         obj.draw();
-  }
-  else
-    debugTimer++
   /// DRAWING PLAYER
   for(let obj of inventoryObjs)
     if(player.image === player.sprites.up) {
@@ -58,10 +53,6 @@ function drawObjects() {
   /// INTERACT W/ OBJECTS
   for(let obj of interactableObjs) {
     if(CollisionDetectionRange(player, obj, GLOB_interactionRange)) {
-      if(keys.e.pressed && pickupTimer > pickupTimerCap) {
-          player.interact(obj);
-          pickupTimer = 0;
-      }
       c.globalAlpha = 0.8;
       iconInteract.position = {
           x: player.position.x,
@@ -72,17 +63,9 @@ function drawObjects() {
       break;
     }
   }
-  /// PICKUP ITEMS
-  if(pickupTimer <= pickupTimerCap)
-    pickupTimer++;
   if(!inventoryObj) {
     for(let obj of itemsObjs)
       if(obj.location === "floor" && CollisionDetection(player, obj)) {
-        if(keys.p.pressed && pickupTimer > pickupTimerCap) {
-          player.pickup(obj);
-          pickupTimer = 0;
-          break;
-        }
         c.globalAlpha = 0.8;
         iconPickup.position = {
           x: obj.position.x,
@@ -103,20 +86,48 @@ function drawObjects() {
 }
 
   /// ANIMATE
-  
+let debugTimer = 0;
 function animate() { 
-    window.requestAnimationFrame(animate);
+  window.requestAnimationFrame(animate);
+  if(debugTimer >= GLOB_GameSpeed) {
+    debugTimer = 0;
     drawObjects();
-    /// PLAYER MOVEMENT
-    player.moving = false;
-    if(keys.w.pressed)
-        HandlePlayerMovement("North");
-    if(keys.d.pressed)
-        HandlePlayerMovement("East");
-    if(keys.s.pressed)
-        HandlePlayerMovement("South");
-    if(keys.a.pressed)
-        HandlePlayerMovement("West");
+  }
+  else {
+    debugTimer++
+  }
+  /// PLAYER MOVEMENT
+  player.moving = false;
+  if(keys.w.pressed)
+    HandlePlayerMovement("North");
+  if(keys.d.pressed)
+    HandlePlayerMovement("East");
+  if(keys.s.pressed)
+    HandlePlayerMovement("South");
+  if(keys.a.pressed)
+    HandlePlayerMovement("West");
+  /// PICKUP ITEMS
+  if(pickupTimer <= pickupTimerCap)
+    pickupTimer++;
+  if(!inventoryObj) {
+    for(let obj of itemsObjs)
+      if(obj.location === "floor" && CollisionDetection(player, obj)) {
+        if(keys.p.pressed && pickupTimer > pickupTimerCap) {
+          player.pickup(obj);
+          pickupTimer = 0;
+          break;
+        }
+      }
+  }
+  for(let obj of interactableObjs) {
+    if(CollisionDetectionRange(player, obj, GLOB_interactionRange)) {
+      if(keys.e.pressed && pickupTimer > pickupTimerCap) {
+          player.interact(obj);
+          pickupTimer = 0;
+          break;
+      }
+    }
+  }
 }
 
   
