@@ -1,13 +1,17 @@
 
 class Sprite {
-    constructor({name, position, image, frames = { max: 1 }, sprites, location = "none", solid = false, interactable = false, item = false, size = 1, animationFrameRate = 20, upperImage = false}) {
+    constructor({name, position, image, frames = { max: 1 }, sprites, location = "none", solid = false, interactable = false, item = false, size = 1, animationFrameRate = 20, upperImage = false, folder = false}) {
         this.spriteID = Math.floor(Math.random() * (10000 - 1) + 1)
         this.name = name
         this.position = position
-        this.image = image
-        if(upperImage) {
-			this.upperImage = upperImage
-		}
+        this.folder = folder
+        if(typeof image === 'string') {
+            this.image = CreateImage(image, folder);
+        }
+        else {
+            this.image = image;
+        }
+        this.upperImage = upperImage
         this.frames = { ...frames, val: 0, elapsed: 0 }
         this.animationFrameRate = animationFrameRate
         this.sprites = sprites
@@ -48,7 +52,7 @@ class Sprite {
             this.postLoad();
         }
 		if(this.upperImage) {
-			const upperImageNew = CreateImage(this.upperImage);
+			const upperImageNew = CreateImage(this.upperImage, this.folder);
 			new Sprite({
 				name: this.name + "_upper",
 				position: {
@@ -63,7 +67,7 @@ class Sprite {
         this.size = size;
     }
     draw() {
-        if(this.position.x + this.width < 0 || this.position.y + this.height < 0 || this.position.x > Tiles(11) || this.position.y >= Tiles(7))
+        if(!IsInView(this))
             return;
         c.drawImage(
             this.image,

@@ -19,12 +19,6 @@ const imageDoor = CreateImage('door');
 
 
 //items
-const imageLeaf = CreateImage('leaf');
-const imageLeafDroplet = CreateImage('leafDroplet');
-const imageLeaf2 = CreateImage('leaf2');
-const imageLeaf2Droplet = CreateImage('leaf2Droplet');
-const imageLeaf3 = CreateImage('leaf3');
-const imageLeaf3Droplet = CreateImage('leaf3Droplet');
 const imageSeed = CreateImage('seed');
 
 //player
@@ -207,8 +201,8 @@ const border = new Sprite({
 const pool = new Sprite({
   name: "pool",
   position: {
-      x: GLOB_bgOffset.x + Tiles(7),
-      y: GLOB_bgOffset.y + Tiles(8)
+      x: GLOB_bgOffset.x + Tiles(14),
+      y: GLOB_bgOffset.y + Tiles(1)
   },
   image: imagePool,
   frames: { max: 2 },
@@ -378,52 +372,6 @@ for(let b = 0; b < 10; b++) {
 //// FLOOR ITEMS    ////
 ////////////////////////
 
-const leaf = new Sprite({
-  name: "leaf",
-  position: {
-      x: GLOB_bgOffset.x + Tiles(9),
-      y: GLOB_bgOffset.y + Tiles(6)
-  },
-  image: imageLeaf,
-  solid: false,
-  item: true,
-  location: "floor",
-  sprites: {
-    default: imageLeaf,
-    droplet: imageLeafDroplet
-  }
-});
-const leaf2 = new Sprite({
-  name: "leaf",
-  position: {
-      x: GLOB_bgOffset.x + Tiles(10),
-      y: GLOB_bgOffset.y + Tiles(6)
-  },
-  image: imageLeaf2,
-  solid: false,
-  item: true,
-  location: "floor",
-  sprites: {
-    default: imageLeaf2,
-    droplet: imageLeaf2Droplet
-  }
-});
-const leaf3 = new Sprite({
-  name: "leaf",
-  position: {
-      x: GLOB_bgOffset.x + Tiles(11),
-      y: GLOB_bgOffset.y + Tiles(6)
-  },
-  image: imageLeaf3,
-  solid: false,
-  item: true,
-  location: "floor",
-  sprites: {
-    default: imageLeaf3,
-    droplet: imageLeaf3Droplet
-  }
-});
-
 const seed = new Sprite({
   name: "seed",
   position: {
@@ -435,3 +383,5 @@ const seed = new Sprite({
   item: true,
   location: "floor"
 });
+
+PopulateAreaWith(Tiles(1), Tiles(5), Tiles(18), Tiles(15), leafs = 9, rocks = 6, mushrooms = 15)

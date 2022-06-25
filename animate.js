@@ -51,7 +51,7 @@ function drawObjects() {
     obj.draw();
   /// INTERACT W/ OBJECTS
   for(let obj of interactableObjs) {
-    if(CollisionDetectionRange(player, obj, GLOB_interactionRange)) {
+    if(IsInView(obj) && CollisionDetectionRange(player, obj, GLOB_interactionRange)) {
       c.globalAlpha = 0.8;
       iconInteract.position = {
           x: player.position.x,
@@ -64,7 +64,7 @@ function drawObjects() {
   }
   if(!inventoryObj) {
     for(let obj of itemsObjs)
-      if(obj.location === "floor" && CollisionDetection(player, obj)) {
+      if(IsInView(obj) && obj.location === "floor" && CollisionDetection(player, obj)) {
         c.globalAlpha = 0.8;
         iconPickup.position = {
           x: obj.position.x,

@@ -47,6 +47,7 @@ canvas {
     background: #000;
     image-rendering:-moz-crisp-edges;
     image-rendering:pixelated;
+    display: none;
 }
 .text {
     margin-top: 20px;
