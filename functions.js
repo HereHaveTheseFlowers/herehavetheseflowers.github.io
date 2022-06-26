@@ -98,7 +98,10 @@ function CollisionDetectionRange(objOne, objTwo, range) {
     c.fillRect(objOne.position.x - range , objOne.position.y - range , objOne.width + range*2, objOne.height + range*2)
     c.globalAlpha = 1;
   }
-  return (objOne.position.x - range < objTwo.position.x +  objTwo.width) && (objOne.position.x +  objOne.width + range > objTwo.position.x) && (objOne.position.y - range < objTwo.position.y +  objTwo.height) && (objOne.position.y +  objOne.height + range > objTwo.position.y)
+  return  (objOne.position.x - range < objTwo.position.x +  objTwo.width) && 
+          (objOne.position.x +  objOne.width + range > objTwo.position.x) && 
+          (objOne.position.y - range < objTwo.position.y +  objTwo.height) && 
+          (objOne.position.y +  objOne.height + range > objTwo.position.y);
 }
 
 //// Handle player movement
@@ -218,7 +221,7 @@ function PopulateAreaWith(areaX, areaY, areaWidth, areaHeight, leafs = 0, rocks 
     //clearing locArray
     locArray.splice(locIndex, 1)
     // creating an obj
-    const imageDroplet = CreateImage('leaf' + objNumber + 'Droplet');
+    const imageDroplet = CreateImage('leaf' + objNumber + 'Droplet', 'leafs');
     const newObj = new Sprite({
       name: "leaf",
       position: {
@@ -231,7 +234,8 @@ function PopulateAreaWith(areaX, areaY, areaWidth, areaHeight, leafs = 0, rocks 
       sprites: {
         default: this.image,
         droplet: imageDroplet
-      }
+      },
+      folder: 'leafs'
     });
   }
   for(let i = 0; i < rocks; i++) {
