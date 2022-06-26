@@ -3,8 +3,13 @@ const mainCanvas =document.querySelector('canvas');
 const loading = document.getElementById('loading');
 const loadingtext = document.getElementById('loadingcontent');
 const loadingtextflow = new TextFlow(loadingtext);
-loadingtextflow.setText("Don't Eat Your Friend!")
+loadingtextflow.setText("Don't Eat Your Friend!", 30)
 const buttonStart = document.getElementById('start');
+
+window.addEventListener('load', function() {
+    buttonStart.style.display = 'block';
+});
+
 function GameStart () {
     loading.style.display = 'none';
     mainCanvas.style.display = 'block';
@@ -12,13 +17,3 @@ function GameStart () {
 }
 
 buttonStart.onclick = GameStart;
-
-/* Old loading bar - in case i need it some time
-window.addEventListener('load', function() {
-    setTimeout(() => {  
-        mainCanvas.style.display = 'block';
-        loading.style.display = 'none';
-        animate();
-    }, 500);
-});
-*/

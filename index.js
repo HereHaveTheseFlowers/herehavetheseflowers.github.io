@@ -11,15 +11,10 @@ const c = mainCanvas.getContext('2d');
 // bg
 const imageBG = CreateImage('bg2');
 
-
 // floor
 const imagePool = CreateImage('pool');
 const imageHome = CreateImage('home');
 const imageDoor = CreateImage('door');
-
-
-//items
-const imageSeed = CreateImage('seed');
 
 //player
 const playerDownImage = CreateImage('playerDown');
@@ -213,17 +208,17 @@ const pool = new Sprite({
 });
 
 pool.interact = function(obj) {
-  if(inventoryObj.name === "leaf") {
-    if(inventoryObj.name === "leaf with a droplet of water")
-      chat.setText('You already have a droplet on your leaf!');
-    else {
+  if(!inventoryObj)
+    chat.setText('You can fill something with water.');
+  else if(inventoryObj.name === "leaf") {
       chat.setText('You fill the leaf with a droplet of water.');
       inventoryObj.image = inventoryObj.sprites.droplet;
       inventoryObj.name = "leaf with a droplet of water";
     }
-  }
+  else if(inventoryObj.name === "leaf with a droplet of water")
+    chat.setText('You already have a droplet on your leaf!');
   else
-    chat.setText('You can fill something with water.');
+    chat.setText('You cant fill that with water.');
 }
 
 const home = new Sprite({
@@ -378,7 +373,7 @@ const seed = new Sprite({
       x: GLOB_bgOffset.x + Tiles(12),
       y: GLOB_bgOffset.y + Tiles(7)
   },
-  image: imageSeed,
+  image: "seed",
   solid: false,
   item: true,
   location: "floor"
