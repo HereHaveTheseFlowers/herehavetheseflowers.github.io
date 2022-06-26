@@ -141,7 +141,7 @@ background.postLoad = function() {
           name: "border",
           position: {
               x: GLOB_bgOffset.x + Tiles(i),
-              y: GLOB_bgOffset.y + background.height
+              y: GLOB_bgOffset.y + background.height - 40
           },
           image: imageBorderCycles2,
           location: "debug",
@@ -150,7 +150,7 @@ background.postLoad = function() {
       new Sprite({
           name: "border",
           position: {
-              x: GLOB_bgOffset.x - Tiles(1),
+              x: GLOB_bgOffset.x,
               y: GLOB_bgOffset.y + Tiles(i)
           },
           image: imageBorderCycles3,
@@ -160,7 +160,7 @@ background.postLoad = function() {
       new Sprite({
           name: "border",
           position: {
-              x: GLOB_bgOffset.x + background.width,
+              x: GLOB_bgOffset.x + background.width - Tiles(1),
               y: GLOB_bgOffset.y + Tiles(i)
           },
           image: imageBorderCycles4,

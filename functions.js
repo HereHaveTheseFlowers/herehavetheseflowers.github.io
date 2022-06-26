@@ -37,37 +37,46 @@ function CollisionDetection (objOne, objTwo, dir = "none") {
         if(GLOB_debug) {
           c.fillStyle = 'yellow'
           c.globalAlpha = 0.01;
-          c.fillRect(objOne.position.x + 30, objOne.position.y + 60, objOne.width - 60, objOne.height - 62)
+          c.fillRect(objOne.position.x + 30, objOne.position.y + 60 - GLOB_movingSpeed, objOne.width - 60, objOne.height - 60  + GLOB_movingSpeed)
           c.globalAlpha = 1;
         }
-        return  (objOne.position.x + 30 < objTwo.position.x +  objTwo.width) && 
-                (objOne.position.x +  objOne.width - 30 > objTwo.position.x) && 
-                (objOne.position.y + 60 < objTwo.position.y +  objTwo.height) && 
-                (objOne.position.y - 2 +  objOne.height > objTwo.position.y);
+        return  (objOne.position.x + 30 <= objTwo.position.x +  objTwo.width) && 
+                (objOne.position.x +  objOne.width - 30 >= objTwo.position.x) && 
+                (objOne.position.y + 60 - GLOB_movingSpeed <= objTwo.position.y +  objTwo.height) && 
+                (objOne.position.y + objOne.height >= objTwo.position.y);
       case 'East':
         if(GLOB_debug) {
           c.fillStyle = 'yellow'
           c.globalAlpha = 0.01;
-          c.fillRect(objOne.position.x + 32, objOne.position.y + 64, objOne.width - 60, objOne.height - 64)
+          c.fillRect(objOne.position.x + 30, objOne.position.y + 60, objOne.width - 60 + GLOB_movingSpeed, objOne.height - 60)
           c.globalAlpha = 1;
         }
-        return (objOne.position.x + 32 < objTwo.position.x +  objTwo.width) && (objOne.position.x +  objOne.width - 28 > objTwo.position.x) && (objOne.position.y + 64 < objTwo.position.y +  objTwo.height) && (objOne.position.y +  objOne.height > objTwo.position.y)
+        return  (objOne.position.x + 30 <= objTwo.position.x +  objTwo.width) && 
+                (objOne.position.x +  objOne.width - 30 + GLOB_movingSpeed >= objTwo.position.x) && 
+                (objOne.position.y + 60 <= objTwo.position.y +  objTwo.height) && 
+                (objOne.position.y +  objOne.height >= objTwo.position.y);
       case 'South':
         if(GLOB_debug) {
           c.fillStyle = 'yellow'
           c.globalAlpha = 0.01;
-          c.fillRect(objOne.position.x + 30, objOne.position.y + 64, objOne.width - 60, objOne.height - 62)
+          c.fillRect(objOne.position.x + 30, objOne.position.y + 60, objOne.width - 60, objOne.height - 60 + GLOB_movingSpeed)
           c.globalAlpha = 1;
         }
-        return (objOne.position.x + 30 < objTwo.position.x +  objTwo.width) && (objOne.position.x +  objOne.width - 30 > objTwo.position.x) && (objOne.position.y + 64 < objTwo.position.y +  objTwo.height) && (objOne.position.y +  objOne.height + 2 > objTwo.position.y)
+        return  (objOne.position.x + 30 <= objTwo.position.x +  objTwo.width) && 
+                (objOne.position.x +  objOne.width - 30 >= objTwo.position.x) && 
+                (objOne.position.y + 60 <= objTwo.position.y +  objTwo.height) && 
+                (objOne.position.y +  objOne.height + GLOB_movingSpeed >= objTwo.position.y);
       case 'West':
         if(GLOB_debug) {
           c.fillStyle = 'yellow'
           c.globalAlpha = 0.01;
-          c.fillRect(objOne.position.x + 28, objOne.position.y + 64, objOne.width - 60, objOne.height - 64)
+          c.fillRect(objOne.position.x + 30 - GLOB_movingSpeed, objOne.position.y + 60, objOne.width - 60 + GLOB_movingSpeed, objOne.height - 60)
           c.globalAlpha = 1;
         }
-        return (objOne.position.x + 28 < objTwo.position.x +  objTwo.width) && (objOne.position.x +  objOne.width - 32 > objTwo.position.x) && (objOne.position.y + 64 < objTwo.position.y +  objTwo.height) && (objOne.position.y +  objOne.height > objTwo.position.y)
+        return  (objOne.position.x + 30 - GLOB_movingSpeed <= objTwo.position.x +  objTwo.width) && 
+                (objOne.position.x +  objOne.width - 30 >= objTwo.position.x) && 
+                (objOne.position.y + 60 <= objTwo.position.y +  objTwo.height) && 
+                (objOne.position.y +  objOne.height >= objTwo.position.y);
       default:
         if(GLOB_debug) {
           c.fillStyle = 'red'
@@ -75,7 +84,10 @@ function CollisionDetection (objOne, objTwo, dir = "none") {
           c.fillRect(objOne.position.x, objOne.position.y, objOne.width, objOne.height)
           c.globalAlpha = 1;
         }
-        return (objOne.position.x < objTwo.position.x +  objTwo.width) && (objOne.position.x +  objOne.width > objTwo.position.x) && (objOne.position.y < objTwo.position.y +  objTwo.height) && (objOne.position.y +  objOne.height > objTwo.position.y)
+        return  (objOne.position.x < objTwo.position.x +  objTwo.width) && 
+                (objOne.position.x +  objOne.width > objTwo.position.x) && 
+                (objOne.position.y < objTwo.position.y +  objTwo.height) && 
+                (objOne.position.y +  objOne.height > objTwo.position.y);
   }
 }
 
@@ -98,7 +110,7 @@ function HandlePlayerMovement(dir) {
     case 'North':
       player.image = player.sprites.up;
       for(let obj of solidObjs)
-        if(CollisionDetection(player, obj, dir, 2)) canmove = false;
+        if(IsInView(obj) && CollisionDetection(player, obj, dir)) canmove = false;
       if(!canmove)
         break;
       if(player.position.y <= background.position.y + Tiles(3) || player.position.y > Tiles(3)) {
@@ -118,7 +130,7 @@ function HandlePlayerMovement(dir) {
     case 'East':
       player.image = player.sprites.right;
       for(let obj of solidObjs)
-        if(CollisionDetection(player, obj, dir, 2)) canmove = false;
+        if(IsInView(obj) && CollisionDetection(player, obj, dir)) canmove = false;
       if(!canmove)
         break;
       if(player.position.x >= background.width  + background.position.x - Tiles(6) ||  player.position.x < Tiles(5)) {
@@ -138,7 +150,7 @@ function HandlePlayerMovement(dir) {
     case 'South':
       player.image = player.sprites.down;
       for(let obj of solidObjs)
-        if(CollisionDetection(player, obj, dir, 2)) canmove = false;
+        if(IsInView(obj) && CollisionDetection(player, obj, dir)) canmove = false;
       if(!canmove)
         break;
       if(player.position.y >= background.position.y + background.height - Tiles(4) || player.position.y < Tiles(3)) {
@@ -158,7 +170,7 @@ function HandlePlayerMovement(dir) {
     case 'West':
       player.image = player.sprites.left;
       for(let obj of solidObjs)
-        if(CollisionDetection(player, obj, dir, 2)) canmove = false;
+        if(IsInView(obj) && CollisionDetection(player, obj, dir)) canmove = false;
       if(!canmove)
         break;
       if(player.position.x <= background.position.x + Tiles(5) ||  player.position.x > Tiles(5)) {
