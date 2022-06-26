@@ -158,7 +158,7 @@ function animate() {
     pickupTimer++;
   if(!inventoryObj) {
     for(let obj of itemsObjs)
-      if(obj.location === "floor" && CollisionDetection(player, obj)) {
+      if(IsInView(obj) && obj.location === "floor" && CollisionDetection(player, obj)) {
         if(keys.p.pressed && pickupTimer > pickupTimerCap) {
           player.pickup(obj);
           pickupTimer = 0;
@@ -167,7 +167,7 @@ function animate() {
       }
   }
   for(let obj of interactableObjs) {
-    if(CollisionDetectionRange(player, obj, GLOB_interactionRange)) {
+    if(IsInView(obj) && CollisionDetectionRange(player, obj, GLOB_interactionRange)) {
       if(keys.e.pressed && pickupTimer > pickupTimerCap) {
           player.interact(obj);
           pickupTimer = 0;
