@@ -8,15 +8,20 @@ const buttonStart = document.getElementById('start');
 
 window.addEventListener('load', function() {
     buttonStart.style.display = 'block';
+    transition.style.opacity = 0;
 });
 
 function GameStart () {
+    buttonStart.classList.add('non-clickable');
     transition.style.opacity = 1;
     setTimeout(() =>  {
-    transition.style.opacity = 0;
-    loading.style.display = 'none'
-    mainCanvas.style.display = 'block'
-    animate();
+        transition.style.opacity = 0;
+        loading.style.display = 'none'
+        mainCanvas.style.display = 'block'
+        animate();
+        setTimeout(() =>  {
+            audio.Map.play();
+        }, 100);
     }, 1000);
 }
 

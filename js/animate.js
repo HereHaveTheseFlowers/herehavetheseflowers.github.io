@@ -102,36 +102,16 @@ function checkFrames () {
     let frames60 = (endTime - startTime) / GameSpeed + 1
     arrayFrames.unshift(frames60);
     arrayFrames = [arrayFrames[0], arrayFrames[1], arrayFrames[2], arrayFrames[3], arrayFrames[4]]
-    if(GLOB_movingSpeed === 3 && arrayFrames[0] > 400 && arrayFrames[1] > 400 && arrayFrames[2]  > 400 && arrayFrames[3]  > 400 && arrayFrames[4]  > 400) {
-      GameSpeed = 1;
-      GLOB_movingSpeed = 4;
+    if(GLOB_movingSpeed > 3 && arrayFrames[0] < 400 && arrayFrames[1] < 400 && arrayFrames[2]  < 400 && arrayFrames[3]  < 400 && arrayFrames[4]  < 400) {
+      GLOB_movingSpeed--;
       console.log(arrayFrames);
       console.log(timer + ` frames took: ${frames60}ms`);
-      console.log('Setting GameSpeed as ' + GameSpeed)
-      console.log('Setting MovingSpeed as ' + GLOB_movingSpeed)
-    }
-    else if(GameSpeed === 2 && arrayFrames[0] < 400 && arrayFrames[1] < 400 && arrayFrames[2]  < 400 && arrayFrames[3]  < 400 && arrayFrames[4]  < 400) {
-      GameSpeed = 1;
-      GLOB_movingSpeed = 3;
-      console.log(arrayFrames);
-      console.log(timer + ` frames took: ${frames60}ms`);
-      console.log('Setting GameSpeed as ' + GameSpeed)
       console.log('Setting MovingSpeed as ' + GLOB_movingSpeed)
     } 
-    else if(GLOB_movingSpeed === 4 && arrayFrames[0] > 450 && arrayFrames[1] > 450 && arrayFrames[2]  > 450 && arrayFrames[3]  > 450 && arrayFrames[4]  > 450) {
-      GameSpeed = 1;
-      GLOB_movingSpeed = 5;
+    else if(GLOB_movingSpeed < 6 && arrayFrames[0] > 400 && arrayFrames[1] > 400 && arrayFrames[2]  > 400 && arrayFrames[3]  > 400 && arrayFrames[4]  > 400) {
+      GLOB_movingSpeed++;
       console.log(arrayFrames);
       console.log(timer + ` frames took: ${frames60}ms`);
-      console.log('Setting GameSpeed as ' + GameSpeed)
-      console.log('Setting MovingSpeed as ' + GLOB_movingSpeed)
-    }
-    else if(GLOB_movingSpeed === 5 && arrayFrames[0] > 500 && arrayFrames[1] > 450 && arrayFrames[2]  > 500 && arrayFrames[3]  > 500 && arrayFrames[4]  > 500) {
-      GameSpeed = 1;
-      GLOB_movingSpeed = 6;
-      console.log(arrayFrames);
-      console.log(timer + ` frames took: ${frames60}ms`);
-      console.log('Setting GameSpeed as ' + GameSpeed)
       console.log('Setting MovingSpeed as ' + GLOB_movingSpeed)
     }
     startTime = new Date().getTime();
