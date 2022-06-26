@@ -1,7 +1,7 @@
 
 class Sprite {
     constructor({name, position, image, frames = { max: 1 }, sprites, location = "none", solid = false, interactable = false, item = false, size = 1, animationFrameRate = 20, upperImage = false, folder = false}) {
-        this.spriteID = Math.floor(Math.random() * (10000 - 1) + 1)
+        this.spriteID = Math.floor(Math.random() * (100000 - 1) + 1)
         this.name = name
         this.position = position
         this.folder = folder
