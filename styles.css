@@ -102,3 +102,16 @@ canvas {
 #start:active {
     background-image: url(../img/buttonstartactive-600.png);
 }
+.preload-images{display:none;}
+#transition {
+    position:absolute;
+    background-color: black;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    transition: all 1000ms linear 0ms;
+    display: block;
+    pointer-events: none;
+}

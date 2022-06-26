@@ -1,5 +1,5 @@
-const mainCanvas =document.querySelector('canvas');
-
+const mainCanvas = document.querySelector('canvas');
+const transition = document.getElementById('transition');
 const loading = document.getElementById('loading');
 const loadingtext = document.getElementById('loadingcontent');
 const loadingtextflow = new TextFlow(loadingtext);
@@ -11,9 +11,13 @@ window.addEventListener('load', function() {
 });
 
 function GameStart () {
-    loading.style.display = 'none';
-    mainCanvas.style.display = 'block';
+    transition.style.opacity = 1;
+    setTimeout(() =>  {
+    transition.style.opacity = 0;
+    loading.style.display = 'none'
+    mainCanvas.style.display = 'block'
     animate();
+    }, 1000);
 }
 
 buttonStart.onclick = GameStart;

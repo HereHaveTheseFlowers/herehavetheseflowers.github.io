@@ -110,7 +110,7 @@ function checkFrames () {
       console.log('Setting GameSpeed as ' + GameSpeed)
       console.log('Setting MovingSpeed as ' + GLOB_movingSpeed)
     }
-    else if(GameSpeed === 2 && arrayFrames[0] < 300 && arrayFrames[1] < 300 && arrayFrames[2]  < 300 && arrayFrames[3]  < 300 && arrayFrames[4]  < 300) {
+    else if(GameSpeed === 2 && arrayFrames[0] < 400 && arrayFrames[1] < 400 && arrayFrames[2]  < 400 && arrayFrames[3]  < 400 && arrayFrames[4]  < 400) {
       GameSpeed = 1;
       GLOB_movingSpeed = 3;
       console.log(arrayFrames);
