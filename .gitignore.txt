@@ -1,0 +1,8 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# VScode workspace file
+*.code-workspace
+
+# ableton files and asepite folder
+*.asd
+dev/
