@@ -245,105 +245,11 @@ home.postLoad = function() {
     solid: true,
     interactable: true
   });
-  const imageBorder1 = CreateImage('border');
-  const imageBorder2 = CreateImage('border');
-  const imageBorder3 = CreateImage('border');
-  const imageBorder4 = CreateImage('border');
-  const imageBorder5 = CreateImage('border');
-  const imageBorder6 = CreateImage('border');
-  const imageBorder7 = CreateImage('border');
-  const imageBorder8 = CreateImage('border');
-  const imageBorder9 = CreateImage('border');
-  const border1 = new Sprite({
-    name: "border",
-    position: {
-        x: this.position.x + Tiles(3),
-        y: this.position.y
-    },
-    image: imageBorder1,
-    location: "debug",
-    solid: true
-  });
-  const border2 = new Sprite({
-    name: "border",
-    position: {
-        x: this.position.x + Tiles(3),
-        y: this.position.y + Tiles(1)
-    },
-    image: imageBorder2,
-    location: "debug",
-    solid: true
-  });
-  const border3 = new Sprite({
-    name: "border",
-    position: {
-        x: this.position.x + Tiles(3),
-        y: this.position.y + Tiles(2)
-    },
-    image: imageBorder3,
-    location: "debug",
-    solid: true
-  });
-  const border4 = new Sprite({
-    name: "border",
-    position: {
-      x: this.position.x + Tiles(4),
-      y: this.position.y + Tiles(2)
-    },
-    image: imageBorder4,
-    location: "debug",
-    solid: true
-  });
-  const border5 = new Sprite({
-    name: "border",
-    position: {
-      x: this.position.x + Tiles(5),
-      y: this.position.y + Tiles(2)
-    },
-    image: imageBorder5,
-    location: "debug",
-    solid: true
-  });
-  const border6 = new Sprite({
-    name: "border",
-    position: {
-      x: this.position.x + Tiles(6),
-      y: this.position.y + Tiles(2)
-    },
-    image: imageBorder6,
-    location: "debug",
-    solid: true
-  });
-  const border7 = new Sprite({
-    name: "border",
-    position: {
-      x: this.position.x + Tiles(7),
-      y: this.position.y + Tiles(2)
-    },
-    image: imageBorder7,
-    location: "debug",
-    solid: true
-  });
-  const border8 = new Sprite({
-    name: "border",
-    position: {
-      x: this.position.x + Tiles(7),
-      y: this.position.y + Tiles(1)
-    },
-    image: imageBorder8,
-    location: "debug",
-    solid: true
-  });
-  const border9 = new Sprite({
-    name: "border",
-    position: {
-      x: this.position.x + Tiles(7),
-      y: this.position.y + Tiles(0)
-    },
-    image: imageBorder9,
-    location: "debug",
-    solid: true
-  });
+  CreateBorders([
+                [1, 0, 0, 0, 1],
+                [1, 0, 0, 0, 1],
+                [1, 1, 2, 1, 1]
+                ], door);
 }
 
 
@@ -379,4 +285,4 @@ const seed = new Sprite({
   location: "floor"
 });
 
-PopulateAreaWith(Tiles(1), Tiles(5), Tiles(18), Tiles(15), leafs = 9, rocks = 6, mushrooms = 15)
+PopulateAreaWith(Tiles(1), Tiles(6), Tiles(18), Tiles(15), leafs = 9, rocks = 6, mushrooms = 15)
