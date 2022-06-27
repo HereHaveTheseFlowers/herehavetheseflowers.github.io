@@ -329,3 +329,42 @@ function PopulateAreaWith(areaX, areaY, areaWidth, areaHeight, leafs = 0, rocks 
 function IsInView(obj) {
   return !(obj.position.x + obj.width < 0 || obj.position.y + obj.height < 0 || obj.position.x > Tiles(11) || obj.position.y >= Tiles(7))
 }
+
+/*
+CREATE BORDERS FUNC
+Lets you generate invisible borders around given obj
+parameters:
+array - represents the area around obj
+example:
+[[1, 0, 0, 0, 1],
+[1, 0, 0, 0, 1],
+[1, 1, 2, 1, 1]]
+obj - the obj that we are going to generate borders around
+*/
+function CreateBorders(array, obj) {
+  let mainObjLoc = [0, 0]; // row and column position of the main obj
+  for(let row in array)
+    for(let elem in array[row]) {
+      if(array[row][elem] === 2 || array[row][elem] === 3) {
+        mainObjLoc = [Number(elem), Number(row)];
+        break;
+      }
+    }
+  for(let row in array) {
+    for(let elem in array[row]) {
+      if(array[row][elem] === 1 || array[row][elem] === 3) {
+        const border1 = new Sprite({
+          name: "border",
+          position: {
+              x: obj.position.x + Tiles((elem - mainObjLoc[0])),
+              y: obj.position.y + Tiles((row - mainObjLoc[1]))
+          },
+          image: 'border',
+          location: "debug",
+          solid: true
+        });
+      }
+    }
+  }
+}
+
