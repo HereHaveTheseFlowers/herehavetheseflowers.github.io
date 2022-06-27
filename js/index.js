@@ -255,54 +255,54 @@ home.postLoad = function() {
   const imageBorder8 = CreateImage('border');
   const imageBorder9 = CreateImage('border');
   const border1 = new Sprite({
-      name: "border",
-      position: {
-          x: this.position.x + Tiles(3),
-          y: this.position.y
-      },
-      image: imageBorder1,
-      location: "debug",
-      solid: true
+    name: "border",
+    position: {
+        x: this.position.x + Tiles(3),
+        y: this.position.y
+    },
+    image: imageBorder1,
+    location: "debug",
+    solid: true
   });
   const border2 = new Sprite({
-      name: "border",
-      position: {
-          x: this.position.x + Tiles(3),
-          y: this.position.y + Tiles(1)
-      },
-      image: imageBorder2,
-      location: "debug",
-      solid: true
+    name: "border",
+    position: {
+        x: this.position.x + Tiles(3),
+        y: this.position.y + Tiles(1)
+    },
+    image: imageBorder2,
+    location: "debug",
+    solid: true
   });
   const border3 = new Sprite({
-      name: "border",
-      position: {
-          x: this.position.x + Tiles(3),
-          y: this.position.y + Tiles(2)
-      },
-      image: imageBorder3,
-      location: "debug",
-      solid: true
+    name: "border",
+    position: {
+        x: this.position.x + Tiles(3),
+        y: this.position.y + Tiles(2)
+    },
+    image: imageBorder3,
+    location: "debug",
+    solid: true
   });
   const border4 = new Sprite({
-      name: "border",
-      position: {
-        x: this.position.x + Tiles(4),
-        y: this.position.y + Tiles(2)
-      },
-      image: imageBorder4,
-      location: "debug",
-      solid: true
+    name: "border",
+    position: {
+      x: this.position.x + Tiles(4),
+      y: this.position.y + Tiles(2)
+    },
+    image: imageBorder4,
+    location: "debug",
+    solid: true
   });
   const border5 = new Sprite({
-      name: "border",
-      position: {
-        x: this.position.x + Tiles(5),
-        y: this.position.y + Tiles(2)
-      },
-      image: imageBorder5,
-      location: "debug",
-      solid: true
+    name: "border",
+    position: {
+      x: this.position.x + Tiles(5),
+      y: this.position.y + Tiles(2)
+    },
+    image: imageBorder5,
+    location: "debug",
+    solid: true
   });
   const border6 = new Sprite({
     name: "border",
