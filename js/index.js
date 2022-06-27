@@ -17,10 +17,10 @@ const imageHome = CreateImage('home');
 const imageDoor = CreateImage('door');
 
 //player
-const playerDownImage = CreateImage('playerDown');
-const playerUpImage = CreateImage('playerUp');
-const playerLeftImage = CreateImage('playerLeft');
-const playerRightImage = CreateImage('playerRight');
+const playerDownImage = CreateImage('playerDown', 'player');
+const playerUpImage = CreateImage('playerUp', 'player');
+const playerLeftImage = CreateImage('playerLeft', 'player');
+const playerRightImage = CreateImage('playerRight', 'player');
 //none
 const imageIconInteract = CreateImage('IconInteract');
 const imageIconPickup = CreateImage('IconPickup');
