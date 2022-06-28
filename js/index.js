@@ -285,4 +285,4 @@ const seed = new Sprite({
   location: "floor"
 });
 
-PopulateAreaWith(Tiles(1), Tiles(6), Tiles(18), Tiles(15), leafs = 9, rocks = 6, mushrooms = 15)
+PopulateAreaWith(Tiles(1), Tiles(6), Tiles(18), Tiles(13), leafs = 9, rocks = 6, mushrooms = 15)
