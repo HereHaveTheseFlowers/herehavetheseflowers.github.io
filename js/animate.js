@@ -1,93 +1,4 @@
-function drawObjects() {
-  /// DRAWING BG and Floor 
-  for(let obj of bgObjs)
-      obj.draw();
-  for(let obj of floorObjs)
-    if(!obj.item)
-      obj.draw()
-  c.save();
-  MakeShadow(6, -3, 12, 'rgba(0,20,0,0.20)');
-  for(let obj of floorObjs)
-    if(obj.item)
-      obj.draw();
-  /// DRAWING PLAYER
-  for(let obj of inventoryObjs)
-    if(player.image === player.sprites.up) {
-      obj.position = {
-        x: player.position.x + Tiles(1) / 6,
-        y: player.position.y + 20
-      }
-      obj.draw();
-    }
-
-  for(let obj of playerObjs)
-    obj.draw();
-  
-  for(let obj of inventoryObjs) {
-    if(player.image === player.sprites.left) {
-      obj.position = {
-        x: player.position.x + Tiles(1) / 6 - 20,
-        y: player.position.y + Tiles(1) / 3 + 8
-      }
-      obj.draw();
-    }
-    else if(player.image === player.sprites.right) {
-      obj.position = {
-        x: player.position.x + Tiles(1) / 6 + 20,
-        y: player.position.y + Tiles(1) / 3 + 8
-      }
-      obj.draw();
-    }
-    else if(player.image === player.sprites.down) {
-      obj.position = {
-        x: player.position.x + Tiles(1) / 6,
-        y: player.position.y + Tiles(1) / 3 + 8
-      }
-      obj.draw();
-    }
-  }
-  c.restore();
-  for(let obj of upperObjs)
-    obj.draw();
-  /// INTERACT W/ OBJECTS
-  for(let obj of interactableObjs) {
-    if(IsInView(obj) && CollisionDetectionRange(player, obj, GLOB_interactionRange)) {
-      c.globalAlpha = 0.8;
-      iconInteract.position = {
-          x: player.position.x,
-          y: player.position.y - 75
-        }
-      iconInteract.draw();
-      c.globalAlpha = 1;
-      break;
-    }
-  }
-  if(!inventoryObj) {
-    for(let obj of itemsObjs)
-      if(IsInView(obj) && obj.location === "floor" && CollisionDetection(player, obj)) {
-        c.globalAlpha = 0.8;
-        iconPickup.position = {
-          x: obj.position.x,
-          y: obj.position.y - 75
-        }
-        iconPickup.draw();
-        c.globalAlpha = 1;
-        break;
-      }
-  }
-  else {
-  /// PUT DOWN ITEMS
-    if(keys.p.pressed && pickupTimer > pickupTimerCap) {
-      player.pickup(inventoryObj);
-      pickupTimer = 0;
-    }
-  }
-  if(GLOB_debug)
-    for(let obj of debugObjs)
-        obj.draw();
-}
-
-  /// ANIMATE
+/// ANIMATE
 let drawTimer = 0;
 let GameSpeed = 1;
 let timer = 0;
@@ -126,13 +37,15 @@ function animate() {
   checkFrames();
   if(drawTimer >= GameSpeed) {
     drawTimer = 0;
-    drawObjects();
+    for(let level of levels)
+      if(level.active) level.draw();
   }
   else {
     drawTimer++
   }
   /// PLAYER MOVEMENT
   player.moving = false;
+  if(Game.state !== "normal") return;
   if(keys.w.pressed)
     HandlePlayerMovement("North");
   if(keys.d.pressed)
@@ -146,7 +59,7 @@ function animate() {
     pickupTimer++;
   if(!inventoryObj) {
     for(let obj of itemsObjs)
-      if(IsInView(obj) && obj.location === "floor" && CollisionDetection(player, obj)) {
+      if(obj.level === player.level && IsInView(obj) && obj.location === "floor" && CollisionDetection(player, obj)) {
         if(keys.p.pressed && pickupTimer > pickupTimerCap) {
           player.pickup(obj);
           pickupTimer = 0;
@@ -155,7 +68,7 @@ function animate() {
       }
   }
   for(let obj of interactableObjs) {
-    if(IsInView(obj) && CollisionDetectionRange(player, obj, GLOB_interactionRange)) {
+    if(obj.level === player.level && IsInView(obj) && CollisionDetectionRange(player, obj, GLOB_interactionRange)) {
       if(keys.e.pressed && pickupTimer > pickupTimerCap) {
           player.interact(obj);
           pickupTimer = 0;

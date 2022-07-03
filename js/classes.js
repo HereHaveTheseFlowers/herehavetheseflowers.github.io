@@ -1,10 +1,11 @@
 
 class Sprite {
-    constructor({name, position, image, frames = { max: 1 }, sprites, location = "none", solid = false, interactable = false, item = false, size = 1, animationFrameRate = 20, upperImage = false, folder = false}) {
-        this.spriteID = Math.floor(Math.random() * (100000 - 1) + 1)
-        this.name = name
-        this.position = position
-        this.folder = folder
+    constructor({name, position, image, frames = { max: 1 }, sprites, location = "none", solid = false, interactable = false, item = false, size = 1, animationFrameRate = 20, upperImage = false, folder = false, level, upperImageOffset = Tiles(1)}) {
+        this.spriteID = Math.floor(Math.random() * (100000 - 1) + 1);
+        this.name = name;
+        this.position = position;
+        this.level = level;
+        this.folder = folder;
         if(typeof image === 'string') {
             this.image = CreateImage(image, folder);
         }
@@ -57,11 +58,12 @@ class Sprite {
 				name: this.name + "_upper",
 				position: {
 					x: this.position.x,
-					y: this.position.y - Tiles(1)
+					y: this.position.y - upperImageOffset
 				},
 				image: upperImageNew,
 				location: "upper",
-				solid: false
+				solid: false,
+                level: this.level
 			});
 		}
         this.size = size;
@@ -144,5 +146,127 @@ class Sprite {
     postLoad = function () {
         return;
     }
+    teleport(offsetx, offsety) {
+        for(let obj of floorObjs)
+            if(obj.spriteID !== this.spriteID && obj.level === player.level) {
+                obj.position.y -= offsety;
+                obj.position.x -= offsetx;
+            }
+        for(let obj of upperObjs)
+            if(obj.spriteID !== this.spriteID && obj.level === player.level) {
+                obj.position.y -= offsety;
+                obj.position.x -= offsetx;
+            }
+        for(let obj of bgObjs)
+            if(obj.spriteID !== this.spriteID && obj.level === player.level) {
+                obj.position.y -= offsety;
+                obj.position.x -= offsetx;
+            }
+        for(let obj of debugObjs)
+            if(obj.spriteID !== this.spriteID && obj.level === player.level) {
+                obj.position.y -= offsety;
+                obj.position.x -= offsetx;
+            }
+    }
 }
 
+class Level {
+    constructor({name, active}) {
+        this.name = name
+        this.active = active
+    }
+    switch() {
+        for(let level of levels)
+            level.active = false;
+        this.active = true;
+        player.level = this.name
+    }
+    draw() {
+        const level = this.name
+        /// DRAWING BG
+        for(let obj of bgObjs)
+            if(obj.level === level) obj.draw();
+        /// DRAWING BG sctructures (non-items)
+        for(let obj of floorObjs)
+            if(!obj.item && obj.level === level) obj.draw();
+        /// DRAWING ITEMS
+        c.save();
+        MakeShadow(6, -3, 12, 'rgba(0,20,0,0.20)');
+        for(let obj of floorObjs)
+            if(obj.item  && obj.level === level) obj.draw();
+        /// DRAWING PLAYER
+        for(let obj of inventoryObjs)
+            if(player.image === player.sprites.up) {
+                obj.position = {
+                    x: player.position.x + Tiles(1) / 6,
+                    y: player.position.y + 20
+                }
+                obj.draw();
+            }
+        for(let obj of playerObjs)
+            obj.draw();
+        
+        for(let obj of inventoryObjs) {
+            if(player.image === player.sprites.left) {
+                obj.position = {
+                    x: player.position.x + Tiles(1) / 6 - 20,
+                    y: player.position.y + Tiles(1) / 3 + 8
+                }
+                obj.draw();
+            }
+            else if(player.image === player.sprites.right) {
+                obj.position = {
+                    x: player.position.x + Tiles(1) / 6 + 20,
+                    y: player.position.y + Tiles(1) / 3 + 8
+                }
+                obj.draw();
+            }
+            else if(player.image === player.sprites.down) {
+                obj.position = {
+                    x: player.position.x + Tiles(1) / 6,
+                    y: player.position.y + Tiles(1) / 3 + 8
+                }
+                obj.draw();
+            }
+        }
+        c.restore();
+        for(let obj of upperObjs)
+            if(obj.level === level) obj.draw();
+        /// INTERACT W/ OBJECTS
+        for(let obj of interactableObjs) {
+            if(obj.level === level && IsInView(obj) && CollisionDetectionRange(player, obj, GLOB_interactionRange)) {
+                c.globalAlpha = 0.8;
+                iconInteract.position = {
+                    x: player.position.x,
+                    y: player.position.y - 75
+                }
+                iconInteract.draw();
+                c.globalAlpha = 1;
+                break;
+            }
+        }
+        if(!inventoryObj) {
+            for(let obj of itemsObjs)
+                if(obj.level === level && IsInView(obj) && obj.location === "floor" && CollisionDetection(player, obj)) {
+                    c.globalAlpha = 0.8;
+                    iconPickup.position = {
+                        x: obj.position.x,
+                        y: obj.position.y - 75
+                    }
+                    iconPickup.draw();
+                    c.globalAlpha = 1;
+                    break;
+                }
+        }
+        else {
+        /// PUT DOWN ITEMS
+            if(keys.p.pressed && pickupTimer > pickupTimerCap && Game.state === "normal") {
+                player.pickup(inventoryObj);
+                pickupTimer = 0;
+            }
+        }
+        if(Game.debug)
+            for(let obj of debugObjs)
+                if(obj.level === level) obj.draw();
+    }
+}

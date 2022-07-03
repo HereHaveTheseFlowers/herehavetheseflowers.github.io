@@ -9,18 +9,13 @@ const c = mainCanvas.getContext('2d');
 /// IMAGE UPLOAD
 
 // bg
-const imageBG = CreateImage('bg2');
+const imageBG = CreateImage('bg');
+const imageBG_home = CreateImage('bg', 'home');
 
 // floor
 const imagePool = CreateImage('pool');
-const imageHome = CreateImage('home');
-const imageDoor = CreateImage('door');
+const imageTreeHome = CreateImage('home');
 
-//player
-const playerDownImage = CreateImage('playerDown', 'player');
-const playerUpImage = CreateImage('playerUp', 'player');
-const playerLeftImage = CreateImage('playerLeft', 'player');
-const playerRightImage = CreateImage('playerRight', 'player');
 //none
 const imageIconInteract = CreateImage('IconInteract');
 const imageIconPickup = CreateImage('IconPickup');
@@ -32,6 +27,10 @@ const imageBorder = CreateImage('border');
 ////////////////////////
 //// PLAYER AND ICONS //
 ////////////////////////
+const playerDownImage = CreateImage('playerDown', 'player');
+const playerUpImage = CreateImage('playerUp', 'player');
+const playerLeftImage = CreateImage('playerLeft', 'player');
+const playerRightImage = CreateImage('playerRight', 'player');
 const player = new Sprite({
   name: "player",
   position: {
@@ -49,12 +48,13 @@ const player = new Sprite({
     left: playerLeftImage
   },
   location: "player",
+  level: "home",
   animationFrameRate: 7,
 });
 let inventoryObj = false;
 
 player.pickup = function(obj) {
-  if(!obj.item || !CollisionDetection(player, obj))
+  if(!obj.item)
     return false;
   if(inventoryObj) {
     obj.position = {
@@ -63,6 +63,7 @@ player.pickup = function(obj) {
     }
     obj.size = 1;
     obj.moveLocation("floor");
+    obj.level = player.level
     chat.setText("You placed a " + obj.name + ' on the ground.')
     inventoryObj = false;
   }
@@ -101,18 +102,20 @@ const iconPickup= new Sprite({
   animationFrameRate: 50,
   image: imageIconPickup
 });
+
+
 ////////////////////////
 //// BG AND DEBUG   ////
 ////////////////////////
-
 const background = new Sprite({
   name: "background",
   position: {
       x: GLOB_bgOffset.x,
       y: GLOB_bgOffset.y
   },
-  image: imageBG,
-  location: "bg"
+  image: "bg",
+  location: "bg",
+  level: "day1"
 });
 
 background.postLoad = function() {
@@ -130,7 +133,8 @@ background.postLoad = function() {
           },
           image: imageBorderCycles,
           location: "debug",
-          solid: true
+          solid: true,
+          level: this.level
       });
       new Sprite({
           name: "border",
@@ -140,7 +144,8 @@ background.postLoad = function() {
           },
           image: imageBorderCycles2,
           location: "debug",
-          solid: true
+          solid: true,
+          level: this.level
       });
       new Sprite({
           name: "border",
@@ -150,7 +155,8 @@ background.postLoad = function() {
           },
           image: imageBorderCycles3,
           location: "debug",
-          solid: true
+          solid: true,
+          level: this.level
       });
       new Sprite({
           name: "border",
@@ -160,7 +166,8 @@ background.postLoad = function() {
           },
           image: imageBorderCycles4,
           location: "debug",
-          solid: true
+          solid: true,
+          level: this.level
       });
     }
   }
@@ -173,7 +180,8 @@ const grid = new Sprite({
       y: GLOB_bgOffset.y
   },
   image: imageGrid,
-  location: "debug"
+  location: "debug",
+  level: "day1"
 });
 
 /* use this for creating invisible borders
@@ -193,6 +201,8 @@ const border = new Sprite({
 //// FLOOR NON-ITEMS////
 ////////////////////////
 
+
+
 const pool = new Sprite({
   name: "pool",
   position: {
@@ -204,7 +214,8 @@ const pool = new Sprite({
   animationFrameRate: 150,
   location: "floor",
   solid: true,
-  interactable: true
+  interactable: true,
+  level: "day1"
 });
 
 pool.interact = function(obj) {
@@ -219,37 +230,6 @@ pool.interact = function(obj) {
     chat.setText('You already have a droplet on your leaf!');
   else
     chat.setText('You cant fill that with water.');
-}
-
-const home = new Sprite({
-  name: "home",
-  position: {
-      x: GLOB_bgOffset.x + Tiles(3),
-      y: GLOB_bgOffset.y + Tiles(0)
-  },
-  image: imageHome,
-  location: "floor",
-  solid: false
-});
-
-// home borders
-home.postLoad = function() {
-  const door = new Sprite({
-    name: "door",
-    position: {
-        x: this.position.x +  Tiles(5),
-        y: this.position.y +  Tiles(2)
-    },
-    image: imageDoor,
-    location: "floor",
-    solid: true,
-    interactable: true
-  });
-  CreateBorders([
-                [1, 0, 0, 0, 1],
-                [1, 0, 0, 0, 1],
-                [1, 1, 2, 1, 1]
-                ], door);
 }
 
 
@@ -282,7 +262,8 @@ const seed = new Sprite({
   image: "seed",
   solid: false,
   item: true,
-  location: "floor"
+  location: "floor",
+  level: "day1"
 });
 
-PopulateAreaWith(Tiles(1), Tiles(6), Tiles(18), Tiles(15), leafs = 9, rocks = 6, mushrooms = 15)
+PopulateAreaWith(Tiles(1), Tiles(6), Tiles(18), Tiles(13), items = {leafs: 9, rocks: 6, mushrooms: 15}, level = "day1")

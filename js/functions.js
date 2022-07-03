@@ -31,10 +31,10 @@ function CollisionDetection (objOne, objTwo, dir = "none") {
     //    overall: false
 
     // output: (objOne.position.x < objTwo.position.x +  objTwo.width) && (objOne.position.x +  objOne.width > objTwo.position.x) && (objOne.position.y < objTwo.position.y +  objTwo.height) && (objOne.position.y +  objOne.height > objTwo.position.y)
-
+  if(objTwo.level !== objOne.level) return false;
   switch(dir) {
       case 'North':
-        if(GLOB_debug) {
+        if(Game.debug) {
           c.fillStyle = 'yellow'
           c.globalAlpha = 0.01;
           c.fillRect(objOne.position.x + 30, objOne.position.y + 60 - GLOB_movingSpeed, objOne.width - 60, objOne.height - 60  + GLOB_movingSpeed)
@@ -45,7 +45,7 @@ function CollisionDetection (objOne, objTwo, dir = "none") {
                 (objOne.position.y + 60 - GLOB_movingSpeed <= objTwo.position.y +  objTwo.height) && 
                 (objOne.position.y + objOne.height >= objTwo.position.y);
       case 'East':
-        if(GLOB_debug) {
+        if(Game.debug) {
           c.fillStyle = 'yellow'
           c.globalAlpha = 0.01;
           c.fillRect(objOne.position.x + 30, objOne.position.y + 60, objOne.width - 60 + GLOB_movingSpeed, objOne.height - 60)
@@ -56,7 +56,7 @@ function CollisionDetection (objOne, objTwo, dir = "none") {
                 (objOne.position.y + 60 <= objTwo.position.y +  objTwo.height) && 
                 (objOne.position.y +  objOne.height >= objTwo.position.y);
       case 'South':
-        if(GLOB_debug) {
+        if(Game.debug) {
           c.fillStyle = 'yellow'
           c.globalAlpha = 0.01;
           c.fillRect(objOne.position.x + 30, objOne.position.y + 60, objOne.width - 60, objOne.height - 60 + GLOB_movingSpeed)
@@ -67,7 +67,7 @@ function CollisionDetection (objOne, objTwo, dir = "none") {
                 (objOne.position.y + 60 <= objTwo.position.y +  objTwo.height) && 
                 (objOne.position.y +  objOne.height + GLOB_movingSpeed >= objTwo.position.y);
       case 'West':
-        if(GLOB_debug) {
+        if(Game.debug) {
           c.fillStyle = 'yellow'
           c.globalAlpha = 0.01;
           c.fillRect(objOne.position.x + 30 - GLOB_movingSpeed, objOne.position.y + 60, objOne.width - 60 + GLOB_movingSpeed, objOne.height - 60)
@@ -78,7 +78,7 @@ function CollisionDetection (objOne, objTwo, dir = "none") {
                 (objOne.position.y + 60 <= objTwo.position.y +  objTwo.height) && 
                 (objOne.position.y +  objOne.height >= objTwo.position.y);
       default:
-        if(GLOB_debug) {
+        if(Game.debug) {
           c.fillStyle = 'red'
           c.globalAlpha = 0.01;
           c.fillRect(objOne.position.x, objOne.position.y, objOne.width, objOne.height)
@@ -92,7 +92,7 @@ function CollisionDetection (objOne, objTwo, dir = "none") {
 }
 
 function CollisionDetectionRange(objOne, objTwo, range) {
-  if(GLOB_debug) {
+  if(Game.debug) {
     c.fillStyle = 'blue'
     c.globalAlpha = 0.1;
     c.fillRect(objOne.position.x - range , objOne.position.y - range , objOne.width + range*2, objOne.height + range*2)
@@ -108,87 +108,91 @@ function CollisionDetectionRange(objOne, objTwo, range) {
 
 function HandlePlayerMovement(dir) {
   let canmove = true;
+  let bg = false;
+  for(let obj of bgObjs)
+    if(obj.level === player.level)
+      bg = obj;
   player.moving = true;
   switch(dir) {
     case 'North':
       player.image = player.sprites.up;
       for(let obj of solidObjs)
-        if(IsInView(obj) && CollisionDetection(player, obj, dir)) canmove = false;
+        if(obj.level === player.level && IsInView(obj) && CollisionDetection(player, obj, dir)) canmove = false;
       if(!canmove)
         break;
-      if(player.position.y <= background.position.y + Tiles(3) || player.position.y > Tiles(3)) {
+      if(player.position.y <= bg.position.y + Tiles(3) || player.position.y > Tiles(3)) {
         for(let obj of playerObjs)
           obj.position.y -= GLOB_movingSpeed;
         break;
       }
       for(let obj of floorObjs)
-        obj.position.y += GLOB_movingSpeed;
+        if(obj.level === player.level) obj.position.y += GLOB_movingSpeed;
       for(let obj of upperObjs)
-        obj.position.y += GLOB_movingSpeed;
+        if(obj.level === player.level) obj.position.y += GLOB_movingSpeed;
       for(let obj of bgObjs)
-        obj.position.y += GLOB_movingSpeed;
+        if(obj.level === player.level) obj.position.y += GLOB_movingSpeed;
       for(let obj of debugObjs)
-        obj.position.y += GLOB_movingSpeed;
+        if(obj.level === player.level) obj.position.y += GLOB_movingSpeed;
       break;
     case 'East':
       player.image = player.sprites.right;
       for(let obj of solidObjs)
-        if(IsInView(obj) && CollisionDetection(player, obj, dir)) canmove = false;
+        if(obj.level === player.level && IsInView(obj) && CollisionDetection(player, obj, dir)) canmove = false;
       if(!canmove)
         break;
-      if(player.position.x >= background.width  + background.position.x - Tiles(6) ||  player.position.x < Tiles(5)) {
+      if(player.position.x >= bg.width  + bg.position.x - Tiles(6) ||  player.position.x < Tiles(5)) {
         for(let obj of playerObjs)
           obj.position.x += GLOB_movingSpeed;
         break;
       }
       for(let obj of floorObjs)
-        obj.position.x -= GLOB_movingSpeed;
+        if(obj.level === player.level) obj.position.x -= GLOB_movingSpeed;
       for(let obj of upperObjs)
-        obj.position.x -= GLOB_movingSpeed;
+        if(obj.level === player.level) obj.position.x -= GLOB_movingSpeed;
       for(let obj of bgObjs)
-        obj.position.x -= GLOB_movingSpeed;
+        if(obj.level === player.level) obj.position.x -= GLOB_movingSpeed;
       for(let obj of debugObjs)
-        obj.position.x -= GLOB_movingSpeed;
+        if(obj.level === player.level) obj.position.x -= GLOB_movingSpeed;
       break;
     case 'South':
       player.image = player.sprites.down;
       for(let obj of solidObjs)
-        if(IsInView(obj) && CollisionDetection(player, obj, dir)) canmove = false;
+        if(obj.level === player.level && IsInView(obj) && CollisionDetection(player, obj, dir)) canmove = false;
       if(!canmove)
         break;
-      if(player.position.y >= background.position.y + background.height - Tiles(4) || player.position.y < Tiles(3)) {
+      if(player.position.y >= bg.position.y + bg.height - Tiles(4) || player.position.y < Tiles(3)) {
         for(let obj of playerObjs)
           obj.position.y += GLOB_movingSpeed;
         break;
       }
       for(let obj of floorObjs)
-        obj.position.y -= GLOB_movingSpeed;
+        if(obj.level === player.level) obj.position.y -= GLOB_movingSpeed;
       for(let obj of upperObjs)
-        obj.position.y -= GLOB_movingSpeed;
+        if(obj.level === player.level) obj.position.y -= GLOB_movingSpeed;
       for(let obj of bgObjs)
-        obj.position.y -= GLOB_movingSpeed;
+        if(obj.level === player.level) obj.position.y -= GLOB_movingSpeed;
       for(let obj of debugObjs)
-        obj.position.y -= GLOB_movingSpeed;
+        if(obj.level === player.level) obj.position.y -= GLOB_movingSpeed;
       break;
     case 'West':
       player.image = player.sprites.left;
       for(let obj of solidObjs)
-        if(IsInView(obj) && CollisionDetection(player, obj, dir)) canmove = false;
+        if(obj.level === player.level && IsInView(obj) && CollisionDetection(player, obj, dir)) canmove = false;
       if(!canmove)
         break;
-      if(player.position.x <= background.position.x + Tiles(5) ||  player.position.x > Tiles(5)) {
+      if(player.position.x <= bg.position.x + Tiles(5) ||  player.position.x > Tiles(5)) {
         for(let obj of playerObjs)
           obj.position.x -= GLOB_movingSpeed;
         break;
       }
       for(let obj of floorObjs)
-        obj.position.x += GLOB_movingSpeed;
+        if(obj.level === player.level) obj.position.x += GLOB_movingSpeed;
       for(let obj of upperObjs)
-        obj.position.x += GLOB_movingSpeed;
+        if(obj.level === player.level) obj.position.x += GLOB_movingSpeed;
       for(let obj of bgObjs)
-        obj.position.x += GLOB_movingSpeed;
+        if(obj.level === player.level) obj.position.x += GLOB_movingSpeed;
       for(let obj of debugObjs)
-        obj.position.x += GLOB_movingSpeed;
+        if(obj.level === player.level) obj.position.x += GLOB_movingSpeed;
       break;
   }
 }
@@ -203,7 +207,7 @@ function PickRand(...array) {
   }
 }
 
-function PopulateAreaWith(areaX, areaY, areaWidth, areaHeight, leafs = 0, rocks = 0, mushrooms = 0) {
+function PopulateAreaWith(areaX, areaY, areaWidth, areaHeight, items = {leafs: 0, rocks: 0, mushrooms: 0}, level = "") {
   let locArray = [];
   for(let i = areaX; i < areaX + areaWidth;) {
     for(let j = areaY; j < areaY + areaHeight;) {
@@ -212,7 +216,7 @@ function PopulateAreaWith(areaX, areaY, areaWidth, areaHeight, leafs = 0, rocks 
     }
     i += Tiles(1);
   }
-  for(let i = 0; i < leafs; i++) {
+  for(let i = 0; i < items.leafs; i++) {
     //name
     const objNumber = PickRand(1, 2, 3);
     //location
@@ -235,10 +239,11 @@ function PopulateAreaWith(areaX, areaY, areaWidth, areaHeight, leafs = 0, rocks 
         default: this.image,
         droplet: imageDroplet
       },
-      folder: 'leafs'
+      folder: 'leafs',
+      level: level
     });
   }
-  for(let i = 0; i < rocks; i++) {
+  for(let i = 0; i < items.rocks; i++) {
     //name
     const objType = PickRand('Small', 'Medium', 'Large');
     const objNumber = PickRand(1, 2)
@@ -292,10 +297,11 @@ function PopulateAreaWith(areaX, areaY, areaWidth, areaHeight, leafs = 0, rocks 
       location: "floor",
       solid: true,
       upperImage: objType === 'Small' ? false : ('rocks' + objType + objNumber + 'upper'),
-      folder: 'rocks'
+      folder: 'rocks',
+      level: level
     });
   }
-  for(let i = 0; i < mushrooms; i++) {
+  for(let i = 0; i < items.mushrooms; i++) {
     //name
     const objType = PickRand('Small', 'Medium', 'Large');
     const objColor = PickRand('Red', 'Brown');
@@ -321,7 +327,8 @@ function PopulateAreaWith(areaX, areaY, areaWidth, areaHeight, leafs = 0, rocks 
       solid: objType === 'Small' ? false : true,
       upperImage: objType === 'Large' ? ('mushroom' + objColor +  objType + objNumber + 'upper') : false,
       folder: 'mushrooms',
-      item: objType === 'Small' ? true : false
+      item: objType === 'Small' ? true : false,
+      level: level
     });
   }
 }
@@ -361,7 +368,8 @@ function CreateBorders(array, obj) {
           },
           image: 'border',
           location: "debug",
-          solid: true
+          solid: true,
+          level: obj.level
         });
       }
     }

@@ -2,8 +2,6 @@
 
 /// TILES
 
-const GLOB_debug = false;
-
 const GLOB_interactionRange = 8;
 
 const GLOB_exportRatio = 600;
@@ -11,8 +9,12 @@ const GLOB_tileSize = 16 * (GLOB_exportRatio / 100);
 function Tiles(numberOfTiles) {
     return numberOfTiles * GLOB_tileSize
 }
-const GLOB_bgOffset = { x:  - Tiles(5), y: - Tiles(1) };
+const GLOB_bgOffset = { x:  - Tiles(1), y: - Tiles(4) };
 
+const Game = {
+    state: "transition",
+    debug: false
+};
 
 //////// NON - CONSTANTS ////////
 
