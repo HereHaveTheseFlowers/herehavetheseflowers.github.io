@@ -21,8 +21,9 @@ function GameStart () {
         animate();
         setTimeout(() =>  {
             audio.Map.play();
-        }, 100);
-    }, 1000);
+            Game.state = "normal"
+        }, 900);
+    }, 900);
 }
 
 buttonStart.onclick = GameStart;
